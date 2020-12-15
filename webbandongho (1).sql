@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 15, 2020 lúc 05:21 AM
+-- Thời gian đã tạo: Th12 15, 2020 lúc 02:47 PM
 -- Phiên bản máy phục vụ: 10.4.16-MariaDB
 -- Phiên bản PHP: 7.4.12
 
@@ -83,6 +83,7 @@ INSERT INTO `chitiethoadonnhap` (`IDChiTietHoaDonNhap`, `IDHoaDonNhap`, `IDSanPh
 CREATE TABLE `hoadonban` (
   `IDHoaDonBan` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `IDKhachHang` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `IDNhanVien` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `ThanhTien` float NOT NULL,
   `NgayBan` date NOT NULL,
   `TrangThai` varchar(20) COLLATE utf8_unicode_ci NOT NULL
@@ -92,11 +93,11 @@ CREATE TABLE `hoadonban` (
 -- Đang đổ dữ liệu cho bảng `hoadonban`
 --
 
-INSERT INTO `hoadonban` (`IDHoaDonBan`, `IDKhachHang`, `ThanhTien`, `NgayBan`, `TrangThai`) VALUES
-('DB001', 'KH003', 10000000, '2020-10-20', ' '),
-('DB002', 'KH005', 4650000, '2020-11-20', ' '),
-('DB003', 'KH004', 5710000, '2020-11-27', ' '),
-('DB004', 'KH001', 9217000, '2020-12-01', ' ');
+INSERT INTO `hoadonban` (`IDHoaDonBan`, `IDKhachHang`, `IDNhanVien`, `ThanhTien`, `NgayBan`, `TrangThai`) VALUES
+('DB001', 'KH003', 'NV001', 10000000, '2020-10-20', ' '),
+('DB002', 'KH005', 'NV002', 4650000, '2020-11-20', ' '),
+('DB003', 'KH004', 'NV004', 5710000, '2020-11-27', ' '),
+('DB004', 'KH001', 'NV004', 9217000, '2020-12-01', ' ');
 
 -- --------------------------------------------------------
 
@@ -107,6 +108,7 @@ INSERT INTO `hoadonban` (`IDHoaDonBan`, `IDKhachHang`, `ThanhTien`, `NgayBan`, `
 CREATE TABLE `hoadonnhap` (
   `IDHoaDonNhap` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `IDNhaCungCap` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `IDNhanVien` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `ThanhTien` float NOT NULL,
   `NgayNhap` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -115,11 +117,11 @@ CREATE TABLE `hoadonnhap` (
 -- Đang đổ dữ liệu cho bảng `hoadonnhap`
 --
 
-INSERT INTO `hoadonnhap` (`IDHoaDonNhap`, `IDNhaCungCap`, `ThanhTien`, `NgayNhap`) VALUES
-('DN001', 'NC002', 33022000, '2020-02-20'),
-('DN002', 'NC004', 51510000, '2020-06-01'),
-('DN003', 'NC001', 31092000, '2020-06-29'),
-('DN004', 'NC005', 29000000, '2020-10-24');
+INSERT INTO `hoadonnhap` (`IDHoaDonNhap`, `IDNhaCungCap`, `IDNhanVien`, `ThanhTien`, `NgayNhap`) VALUES
+('DN001', 'NC002', 'NV001', 33022000, '2020-02-20'),
+('DN002', 'NC004', 'NV002', 51510000, '2020-06-01'),
+('DN003', 'NC001', 'NV001', 31092000, '2020-06-29'),
+('DN004', 'NC005', 'NV001', 29000000, '2020-10-24');
 
 -- --------------------------------------------------------
 
@@ -192,6 +194,57 @@ INSERT INTO `nhacungcap` (`IDNhaCungCap`, `TenNhacungCap`, `DiaChi`, `SoDienThoa
 ('NC004', 'Thụy Sĩ', 'Binh Tan', '0456789123'),
 ('NC005', 'Thụy Điển', 'Binh Thanh', '0567891234'),
 ('NC006', 'Hồng Kông', 'Phu Nhuan', '0678912345');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `nhanvien`
+--
+
+CREATE TABLE `nhanvien` (
+  `IDNhanVien` char(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `HoNhanVien` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `TenNhanVien` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Gmail` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `GioiTinh` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `SoDienThoai` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `ChucVu` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`IDNhanVien`, `HoNhanVien`, `TenNhanVien`, `Gmail`, `GioiTinh`, `SoDienThoai`, `ChucVu`) VALUES
+('NV001', 'Nguyễn Minh ', 'Nguyên', 'MinhNguyen@gmail.com', 'Nam', '0327377921', 'Giám đốc'),
+('NV002', 'Nguyễn Quốc ', 'Tuấn', 'QuocTuan@gmail.com', 'Nam', '0909000888', 'Nhân viên'),
+('NV003', 'Lê Trí', 'Nhân', 'TriNhan@gmail.com', 'chưa biết', '0304050621', 'Quản lý'),
+('NV004', 'Nguyễn Tấn ', 'Phát', 'TanPhat@gmail.com', 'Nam', '0903221155', 'Nhân viên'),
+('NV005', 'Nguyễn', 'Thịnh', 'NguyenThinh@gmail.com', 'Nam', '0203040101', 'Nhân viên'),
+('NV006', 'Cao Quốc', 'Hưng', 'QuocHung@gmail.com', 'Nam', '0530125124', 'Nhân viên');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `phanquyen`
+--
+
+CREATE TABLE `phanquyen` (
+  `IDPhanQuyen` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `TenQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MoTaQuyen` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phanquyen`
+--
+
+INSERT INTO `phanquyen` (`IDPhanQuyen`, `TenQuyen`, `MoTaQuyen`) VALUES
+('PQ000', 'admin', 'QLBanHangQLNhapHangQLMonAnQLNguyenLieuQLCongThucQLHoaDonQLHDNhapQLKhuyenMaiQLKhachHangQLNhanVienQLNhaCungCapQLTaiKhoanQLPhanQuyenQLThongKe'),
+('PQ001', 'Quản lý', 'QLBanHangQLNhapHangQLMonAnQLNguyenLieuQLCongThucQLHoaDonQLHDNhapQLKhuyenMaiQLKhachHangQLNhanVienQLNhaCungCapQLThongKe'),
+('PQ002', 'Bán hàng', 'QLBanHangQLHoaDonQLKhachHang'),
+('PQ003', 'Nhập hàng', 'QLNhapHangQLHDNhap'),
+('PQ004', 'Bán và nhập hàng', 'QLBanHangQLNhapHangQLHoaDonQLHDNhapQLKhachHang');
 
 -- --------------------------------------------------------
 
@@ -295,20 +348,21 @@ INSERT INTO `sanpham` (`IDSanPham`, `TenSanPham`, `IDDay`, `IDThuongHieu`, `IDNh
 CREATE TABLE `taikhoankh` (
   `TaiKhoan` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `MatKhau` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `IDKhachHang` char(5) COLLATE utf8_unicode_ci NOT NULL
+  `IDNhanVien` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `IDPhanQuyen` char(5) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `taikhoankh`
 --
 
-INSERT INTO `taikhoankh` (`TaiKhoan`, `MatKhau`, `IDKhachHang`) VALUES
-('admin', '123456', 'KH000'),
-('caohung', 'iklmno', 'KH004'),
-('lenhan', '290620', 'KH002'),
-('nguyenhuy', 'qwerty', 'KH005'),
-('nguyennguyen', '456789', 'KH003'),
-('nguyenphat', 'abcdef', 'KH001');
+INSERT INTO `taikhoankh` (`TaiKhoan`, `MatKhau`, `IDNhanVien`, `IDPhanQuyen`) VALUES
+('admin', '123456', 'NV001', 'PQ000'),
+('caohung', 'iklmno', 'NV003', 'PQ001'),
+('lenhan', '290620', 'NV002', 'PQ002'),
+('nguyenhuy', 'qwerty', 'NV004', 'PQ003'),
+('nguyennguyen', '456789', 'NV005', 'PQ004'),
+('nguyenphat', 'abcdef', 'NV006', 'PQ004');
 
 -- --------------------------------------------------------
 
@@ -366,14 +420,16 @@ ALTER TABLE `chitiethoadonnhap`
 --
 ALTER TABLE `hoadonban`
   ADD PRIMARY KEY (`IDHoaDonBan`),
-  ADD KEY `IDKhachHang` (`IDKhachHang`);
+  ADD KEY `IDKhachHang` (`IDKhachHang`),
+  ADD KEY `IDNhanVien` (`IDNhanVien`);
 
 --
 -- Chỉ mục cho bảng `hoadonnhap`
 --
 ALTER TABLE `hoadonnhap`
   ADD PRIMARY KEY (`IDHoaDonNhap`),
-  ADD KEY `IDNhaCungCap` (`IDNhaCungCap`);
+  ADD KEY `IDNhaCungCap` (`IDNhaCungCap`),
+  ADD KEY `IDNhanVien` (`IDNhanVien`);
 
 --
 -- Chỉ mục cho bảng `khachhang`
@@ -394,6 +450,18 @@ ALTER TABLE `nhacungcap`
   ADD PRIMARY KEY (`IDNhaCungCap`);
 
 --
+-- Chỉ mục cho bảng `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`IDNhanVien`);
+
+--
+-- Chỉ mục cho bảng `phanquyen`
+--
+ALTER TABLE `phanquyen`
+  ADD PRIMARY KEY (`IDPhanQuyen`);
+
+--
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
@@ -407,7 +475,8 @@ ALTER TABLE `sanpham`
 --
 ALTER TABLE `taikhoankh`
   ADD PRIMARY KEY (`TaiKhoan`),
-  ADD KEY `IDKhachHang` (`IDKhachHang`);
+  ADD KEY `IDNhanVien` (`IDNhanVien`),
+  ADD KEY `IDPhanQuyen` (`IDPhanQuyen`);
 
 --
 -- Chỉ mục cho bảng `thuonghieu`
@@ -437,13 +506,15 @@ ALTER TABLE `chitiethoadonnhap`
 -- Các ràng buộc cho bảng `hoadonban`
 --
 ALTER TABLE `hoadonban`
-  ADD CONSTRAINT `hoadonban_ibfk_1` FOREIGN KEY (`IDKhachHang`) REFERENCES `khachhang` (`IDKhachHang`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `hoadonban_ibfk_1` FOREIGN KEY (`IDKhachHang`) REFERENCES `khachhang` (`IDKhachHang`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `hoadonban_ibfk_2` FOREIGN KEY (`IDNhanVien`) REFERENCES `nhanvien` (`IDNhanVien`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `hoadonnhap`
 --
 ALTER TABLE `hoadonnhap`
-  ADD CONSTRAINT `hoadonnhap_ibfk_1` FOREIGN KEY (`IDNhaCungCap`) REFERENCES `nhacungcap` (`IDNhaCungCap`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `hoadonnhap_ibfk_1` FOREIGN KEY (`IDNhaCungCap`) REFERENCES `nhacungcap` (`IDNhaCungCap`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `hoadonnhap_ibfk_2` FOREIGN KEY (`IDNhanVien`) REFERENCES `nhanvien` (`IDNhanVien`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Các ràng buộc cho bảng `sanpham`
@@ -457,7 +528,8 @@ ALTER TABLE `sanpham`
 -- Các ràng buộc cho bảng `taikhoankh`
 --
 ALTER TABLE `taikhoankh`
-  ADD CONSTRAINT `taikhoankh_ibfk_1` FOREIGN KEY (`IDKhachHang`) REFERENCES `khachhang` (`IDKhachHang`) ON DELETE NO ACTION ON UPDATE CASCADE;
+  ADD CONSTRAINT `taikhoankh_ibfk_1` FOREIGN KEY (`IDPhanQuyen`) REFERENCES `phanquyen` (`IDPhanQuyen`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `taikhoankh_ibfk_2` FOREIGN KEY (`IDNhanVien`) REFERENCES `nhanvien` (`IDNhanVien`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
