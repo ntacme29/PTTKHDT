@@ -25,7 +25,7 @@ import DTO.HoaDonDTO;
 import DTO.HoaDonNhapDTO;
 import DTO.KhachHangDTO;
 import DTO.KhuyenMaiDTO;
-import DTO.MonAnDTO;
+import DTO.SanPhamDTO;
 import DTO.NguyenLieuDTO;
 import DTO.NhaCungCapDTO;
 import DTO.NhanVienDTO;
@@ -99,7 +99,7 @@ public class DocExcel {
                     int soluong = (int) cellIterator.next().getNumericCellValue();
 
                     MonAnBUS monanBUS = new MonAnBUS();
-                    MonAnDTO monanOld = monanBUS.getMonAnDTO(id);
+                    SanPhamDTO monanOld = monanBUS.getMonAnDTO(id);
 
                     if (monanOld != null) {
                         if (!hanhDongKhiTrung.contains("tất cả")) {
@@ -123,7 +123,7 @@ public class DocExcel {
                             hanhDongKhiTrung = mop.getAnswer();
                         }
                         if (hanhDongKhiTrung.contains("Ghi đè")) {
-                            MonAnDTO DTO=new MonAnDTO(id, tenmon, donvitinh,dongia, hinhanh, loai, soluong, "Hiện");
+                            SanPhamDTO DTO=new SanPhamDTO(id, tenmon, donvitinh,dongia, hinhanh, loai, soluong, "Hiện");
                             monanBUS.sua(DTO,MonAnBUS.timViTri(id));
                             countGhiDe++;
                         } else {
@@ -133,7 +133,7 @@ public class DocExcel {
                     //Khi database trống    
                      
                     } else {          
-                        MonAnDTO monan = new MonAnDTO(id, tenmon, donvitinh, dongia, hinhanh, loai, soluong, "Hiện");
+                        SanPhamDTO monan = new SanPhamDTO(id, tenmon, donvitinh, dongia, hinhanh, loai, soluong, "Hiện");
                         monanBUS.them(monan);
                         countThem++;
                     }

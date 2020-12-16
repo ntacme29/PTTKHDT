@@ -14,7 +14,7 @@ import BUS.Tool;
 import DTO.ChiTietHoaDonDTO;
 import DTO.HoaDonDTO;
 import DTO.KhuyenMaiDTO;
-import DTO.MonAnDTO;
+import DTO.SanPhamDTO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -107,7 +107,7 @@ public class GUIBanHang extends GUIFormBanNhap{
                 Logger.getLogger(GUIMonAn.class.getName()).log(Level.SEVERE, null, ex);
             }
         }       
-        for (MonAnDTO monAnDTO : MonAnBUS.dsMonAn) {
+        for (SanPhamDTO monAnDTO : MonAnBUS.dsMonAn) {
             if (monAnDTO.getTrangThai().equals("Hiện")) {
                 table_MonAn.addRow(monAnDTO);
                     
@@ -156,8 +156,8 @@ public class GUIBanHang extends GUIFormBanNhap{
     //xóa ruột của table và đổ lên những kết quả tìm kiếm được
     public void txtSearchOnChange() {
         table_MonAn.clear();
-        ArrayList<MonAnDTO> arraylist=Tool.searchBH(search.getText());
-        for (MonAnDTO DTO : arraylist) {
+        ArrayList<SanPhamDTO> arraylist=Tool.searchBH(search.getText());
+        for (SanPhamDTO DTO : arraylist) {
             if (DTO.getTrangThai().equals("Hiện")) {
                 table_MonAn.addRow(DTO);
                     
@@ -242,7 +242,7 @@ public class GUIBanHang extends GUIFormBanNhap{
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
         if (id != null) {
             // show hình
-            for (MonAnDTO ds : MonAnBUS.dsMonAn) {
+            for (SanPhamDTO ds : MonAnBUS.dsMonAn) {
                 if (ds.getIDMonAn().equals(id)) {
                     int w = lbImage.getWidth();
                     int h = lbImage.getHeight();
@@ -582,7 +582,7 @@ public class GUIBanHang extends GUIFormBanNhap{
     //Hàm khi ấn nút làm mới
     private void LamMoi() {
         table_MonAn.clear();
-        for (MonAnDTO DTO : MonAnBUS.dsMonAn) {
+        for (SanPhamDTO DTO : MonAnBUS.dsMonAn) {
             if (DTO.getTrangThai().equals("Hiện")) {
                 table_MonAn.addRow(DTO);
             }

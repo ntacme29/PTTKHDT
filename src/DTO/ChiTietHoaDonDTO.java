@@ -1,31 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Đã sửa
 package DTO;
-
-/**
- *
- * @author HP
- */
 public class ChiTietHoaDonDTO {
 
-    private String IDHoaDon,IDMonAn;
-    private int SoLuong;
-    private float DonGia,ThanhTien;
-    public ChiTietHoaDonDTO(String IDHoaDon,String IDMonAn,int SoLuong,float DonGia,float ThanhTien){
-        this.IDHoaDon = IDHoaDon;
-        this.IDMonAn = IDMonAn;
-        this.SoLuong = SoLuong;
-        this.DonGia = DonGia;
-        this.ThanhTien = ThanhTien;
-        
-    }
-
+    private String IDHoaDon,IDSanPham;
+    private int SoLuong,IDChiTietHoaDon;
 
     public ChiTietHoaDonDTO() {
-        
+    }
+
+    public ChiTietHoaDonDTO(String IDHoaDon, String IDSanPham, int SoLuong, int IDChiTietHoaDon) {
+        this.IDHoaDon = IDHoaDon;
+        this.IDSanPham = IDSanPham;
+        this.SoLuong = SoLuong;
+        this.IDChiTietHoaDon = IDChiTietHoaDon;
     }
 
     public String getIDHoaDon() {
@@ -36,12 +23,12 @@ public class ChiTietHoaDonDTO {
         this.IDHoaDon = IDHoaDon;
     }
 
-    public String getIDMonAn() {
-        return IDMonAn;
+    public String getIDSanPham() {
+        return IDSanPham;
     }
 
-    public void setIDMonAn(String IDMonAn) {
-        this.IDMonAn = IDMonAn;
+    public void setIDSanPham(String IDSanPham) {
+        this.IDSanPham = IDSanPham;
     }
 
     public int getSoLuong() {
@@ -52,27 +39,12 @@ public class ChiTietHoaDonDTO {
         this.SoLuong = SoLuong;
     }
 
-    public float getDonGia() {
-        return DonGia;
+    public int getIDChiTietHoaDon() {
+        return IDChiTietHoaDon;
     }
 
-    public void setDonGia(float DonGia) {
-        this.DonGia = DonGia;
+    public void setIDChiTietHoaDon(int IDChiTietHoaDon) {
+        this.IDChiTietHoaDon = IDChiTietHoaDon;
     }
-
-    public float getThanhTien() {
-        return ThanhTien;
-    }
-
-    public void setThanhTien(float ThanhTien) {
-        this.ThanhTien = ThanhTien;
-    }
-
-
-
+    
 }
-
-
-
-
-

@@ -8,7 +8,7 @@ package GUI;
 import BUS.HoaDonBUS;
 import BUS.Tool;
 import DTO.HoaDonDTO;
-import DTO.MonAnDTO;
+import DTO.SanPhamDTO;
 import Excel.DocExcel;
 import Excel.XuatExcel;
 import Report.PDF;

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 // copy paste qua hết
 public class MonAnBUS {
 
-    public static ArrayList<MonAnDTO> dsMonAn;
+    public static ArrayList<SanPhamDTO> dsMonAn;
 
     public MonAnBUS() {
 
@@ -21,7 +21,7 @@ public class MonAnBUS {
 
     }
 
-    public void them(MonAnDTO monAn) //cần ghi lại khi qua class khác
+    public void them(SanPhamDTO monAn) //cần ghi lại khi qua class khác
     {
         MonAnDAO data = new MonAnDAO();
         data.them(monAn);//ghi vào database
@@ -29,7 +29,7 @@ public class MonAnBUS {
             dsMonAn.add(monAn);//cập nhật arraylist
     }
 
-    public void sua(MonAnDTO monAn, int i) //cần ghi lại khi qua class khác
+    public void sua(SanPhamDTO monAn, int i) //cần ghi lại khi qua class khác
     {
         MonAnDAO data = new MonAnDAO();
         data.sua(monAn);
@@ -41,7 +41,7 @@ public class MonAnBUS {
     {
         MonAnDAO data = new MonAnDAO();
         data.xoa(ID); // update trạng thái lên database
-        MonAnDTO DTO=dsMonAn.get(index); // sửa lại thông tin trong list
+        SanPhamDTO DTO=dsMonAn.get(index); // sửa lại thông tin trong list
         DTO.setTrangThai("Ẩn");
         if(dsMonAn!=null)
             dsMonAn.set(index, DTO);
@@ -56,11 +56,11 @@ public class MonAnBUS {
         }
         return 0;
     }
-    public ArrayList<MonAnDTO> getMonAnDTO() {
+    public ArrayList<SanPhamDTO> getMonAnDTO() {
         return dsMonAn;
     }
-    public MonAnDTO getMonAnDTO(String idmonan) {
-        for (MonAnDTO maDTO : dsMonAn) {
+    public SanPhamDTO getMonAnDTO(String idmonan) {
+        for (SanPhamDTO maDTO : dsMonAn) {
             if (maDTO.getIDMonAn().equals(idmonan)) {
                 return maDTO;
             }
@@ -89,7 +89,7 @@ public class MonAnBUS {
         {
             dsMonAn = new ArrayList<>();
         }
-        for(MonAnDTO monAnDTO : dsMonAn)
+        for(SanPhamDTO monAnDTO : dsMonAn)
         {
             if(monAnDTO.getIDMonAn().equals(maMonAn))
             {

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Đã sửa
 package DAO;
 
 import DTO.ChiTietHoaDonNhapDTO;
@@ -25,11 +21,10 @@ public class ChiTietHoaDonNhapDAO {
             ResultSet rs = connection.excuteQuery(qry);  
             while (rs.next()) {
                     ChiTietHoaDonNhapDTO  cthdn = new ChiTietHoaDonNhapDTO();
+                    cthdn.setIDChiTietHoaDonNhap(rs.getInt("IDChiTIetHoaDonNhap"));
                     cthdn.setIDHoaDonNhap(rs.getString("IDHoaDonNhap"));
-                    cthdn.setIDNguyenLieu(rs.getString("IDNguyenLieu"));
+                    cthdn.setIDSanPham(rs.getString("IDSanPham"));
                     cthdn.setSoLuong(rs.getInt("SoLuong"));
-                    cthdn.setGiaNhap(rs.getFloat("GiaNhap"));
-                    cthdn.setThanhTien(rs.getFloat("ThanhTien"));
                     CTHDN.add(cthdn);
                 }
             }
@@ -41,11 +36,10 @@ public class ChiTietHoaDonNhapDAO {
     public void them(ChiTietHoaDonNhapDTO  cthdn ) {
         try{
             String qry ="INSERT INTO chitiethoadonnhap values (";
-            qry = qry + "'" + cthdn.getIDHoaDonNhap()+ "'";
-            qry = qry + "," + "'" + cthdn.getIDNguyenLieu()+ "'";
+            qry = qry + "'" + cthdn.getIDChiTietHoaDonNhap()+ "'";
+            qry = qry + "," + "'" + cthdn.getIDHoaDonNhap()+ "'";
+            qry = qry + "," + "'" + cthdn.getIDSanPham()+ "'";
             qry = qry + "," + "'" + cthdn.getSoLuong()+ "'";
-            qry = qry + "," + "'" + cthdn.getGiaNhap()+ "'";
-            qry = qry + "," + "'" + cthdn.getThanhTien()+ "'";
             qry = qry + ")";
             connection.getStatement();
             connection.ExecuteUpdate(qry);           
