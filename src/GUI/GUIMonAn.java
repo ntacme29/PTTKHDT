@@ -7,7 +7,7 @@ package GUI;
 
 import BUS.MonAnBUS;
 import BUS.Tool;
-import DTO.MonAnDTO;
+import DTO.SanPhamDTO;
 import Excel.DocExcel;
 import Excel.XuatExcel;
 import java.awt.Color;
@@ -184,7 +184,7 @@ public class GUIMonAn extends GUIFormContent {
                             cbLoai_Them.getSelectedItem().toString(),
                             txt_MonAn_Them[6].getText())) {
                         //Tạo đối tượng và truyền dữ liệu trực tiếp vào 
-                        MonAnDTO DTO = new MonAnDTO(txt_MonAn_Them[0].getText(),
+                        SanPhamDTO DTO = new SanPhamDTO(txt_MonAn_Them[0].getText(),
                                 txt_MonAn_Them[1].getText(),
                                 cbDonViTinh_Them.getSelectedItem().toString(),
                                 Integer.parseInt(txt_MonAn_Them[3].getText()),
@@ -459,7 +459,7 @@ public class GUIMonAn extends GUIFormContent {
             }
         }
         //Chỉ hiện những món ăn ở trạng thái hiện , trạng thái ẩn là khi xóa
-        for (MonAnDTO monAnDTO : MonAnBUS.dsMonAn) {
+        for (SanPhamDTO monAnDTO : MonAnBUS.dsMonAn) {
             if (monAnDTO.getTrangThai().equals("Hiện")) {
                 table_MonAn.addRow(monAnDTO);
 
@@ -629,7 +629,7 @@ public class GUIMonAn extends GUIFormContent {
 
             //Sửa dữ liệu trong database và arraylist trên bus
             //Tạo đối tượng monAnDTO và truyền dữ liệu trực tiếp thông qua constructor
-            MonAnDTO DTO = new MonAnDTO(txt_MonAn_Sua[0].getText(),
+            SanPhamDTO DTO = new SanPhamDTO(txt_MonAn_Sua[0].getText(),
                     txt_MonAn_Sua[1].getText(),
                     cbDonViTinh_Sua.getSelectedItem().toString(),
                     Integer.parseInt(txt_MonAn_Sua[3].getText()),
@@ -774,7 +774,7 @@ public class GUIMonAn extends GUIFormContent {
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
         if (id != null) {
             // show hình
-            for (MonAnDTO ds : MonAnBUS.dsMonAn) {
+            for (SanPhamDTO ds : MonAnBUS.dsMonAn) {
                 if (ds.getIDMonAn().equals(id)) {
                     //Lấy chiều dài và chiều cao của nhãn lbImage
                     int w = lbImage.getWidth();
@@ -882,9 +882,9 @@ public class GUIMonAn extends GUIFormContent {
     }
 
     //Set dữ liệu lên lại table
-    private void setDataToTable(ArrayList<MonAnDTO> monAnDTO, GUIMyTable myTable) {
+    private void setDataToTable(ArrayList<SanPhamDTO> monAnDTO, GUIMyTable myTable) {
         myTable.clear();
-        for (MonAnDTO monAn : monAnDTO) {
+        for (SanPhamDTO monAn : monAnDTO) {
             table_MonAn.addRow(monAn);
         }
     }
@@ -904,7 +904,7 @@ public class GUIMonAn extends GUIFormContent {
     //Hàm khi ấn nút làm mới
     private void LamMoi() {
         table_MonAn.clear();
-        for (MonAnDTO DTO : MonAnBUS.dsMonAn) {
+        for (SanPhamDTO DTO : MonAnBUS.dsMonAn) {
             if (DTO.getTrangThai().equals("Hiện")) {
                 table_MonAn.addRow(DTO);
             }

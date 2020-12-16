@@ -294,9 +294,9 @@ public static boolean isGmail(String gmail)
         }
         return sb.toString();
     }
-    public static ArrayList<MonAnDTO> searchMA(String value, double donGiaTu, double donGiaDen, int soLuongTu, int soLuongDen) { //có thay đổi
+    public static ArrayList<SanPhamDTO> searchMA(String value, double donGiaTu, double donGiaDen, int soLuongTu, int soLuongDen) { //có thay đổi
         // phương pháp tìm từ arraylist
-        ArrayList<MonAnDTO> result = new ArrayList<>();
+        ArrayList<SanPhamDTO> result = new ArrayList<>();
         //Tìm theo tên
         MonAnBUS.dsMonAn.forEach((MonAnDTO) -> {
             if ( MonAnDTO.getTenMonAn().toLowerCase().contains(value.toLowerCase()) && MonAnDTO.getTrangThai().equals("Hiện") //Tìm kiếm theo chuỗi thường
@@ -308,7 +308,7 @@ public static boolean isGmail(String gmail)
 
             for (int i = result.size() - 1; i >= 0; i--)
             {
-                MonAnDTO monAn = result.get(i);
+                SanPhamDTO monAn = result.get(i);
                 double donGia = monAn.getDonGia();
                 int soLuong = monAn.getSoLuong();
                 Boolean donGiaKhongThoa = (donGiaTu != -1 && donGia < donGiaTu ) || (donGiaDen != -1 && donGia > donGiaDen);
@@ -700,9 +700,9 @@ public static boolean isGmail(String gmail)
         return result;
             
     }
-    public static ArrayList<MonAnDTO> searchBH(String value) { 
+    public static ArrayList<SanPhamDTO> searchBH(String value) { 
         // phương pháp tìm từ arraylist
-        ArrayList<MonAnDTO> result = new ArrayList<>();       
+        ArrayList<SanPhamDTO> result = new ArrayList<>();       
         
         //Tìm theo tên
         MonAnBUS.dsMonAn.forEach((MonAnDTO) -> {

@@ -53,7 +53,7 @@ public class ChiTietHoaDonBUS {
 //    }
      public void trusoluong(ChiTietHoaDonDTO ctHD){
          MonAnBUS bus=new MonAnBUS();
-         for(MonAnDTO DTO:MonAnBUS.dsMonAn)
+         for(SanPhamDTO DTO:MonAnBUS.dsMonAn)
          {
              if(ctHD.getIDMonAn().equals(DTO.getIDMonAn()))
              {

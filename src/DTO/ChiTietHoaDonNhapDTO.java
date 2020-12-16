@@ -1,38 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Đã sửa
 package DTO;
-
-/**
- *
- * @author HP
- */
 public class ChiTietHoaDonNhapDTO {
-    private String IDHoaDonNhap,IDNguyenLieu;
-    private int SoLuong;
-    private float GiaNhap,ThanhTien;
-    public ChiTietHoaDonNhapDTO(String IDHoaDonNhap,String IDNguyenLieu,int SoLuong,float GiaNhap,float ThanhTien){
-        this.IDHoaDonNhap = IDHoaDonNhap;
-        this.IDNguyenLieu = IDNguyenLieu;
-        this.SoLuong = SoLuong;
-        this.GiaNhap=GiaNhap;
-        this.ThanhTien=ThanhTien;
-    }
+    private String IDHoaDonNhap,IDSanPham;
+    private int SoLuong,IDChiTietHoaDonNhap;
 
     public ChiTietHoaDonNhapDTO() {
-        
     }
 
-    public float getThanhTien() {
-        return ThanhTien;
+    public ChiTietHoaDonNhapDTO(String IDHoaDonNhap, String IDSanPham, int SoLuong, int IDChiTietHoaDonNhap) {
+        this.IDHoaDonNhap = IDHoaDonNhap;
+        this.IDSanPham = IDSanPham;
+        this.SoLuong = SoLuong;
+        this.IDChiTietHoaDonNhap = IDChiTietHoaDonNhap;
     }
 
-    public void setThanhTien(float ThanhTien) {
-        this.ThanhTien = ThanhTien;
-    }
-    
     public String getIDHoaDonNhap() {
         return IDHoaDonNhap;
     }
@@ -41,12 +22,12 @@ public class ChiTietHoaDonNhapDTO {
         this.IDHoaDonNhap = IDHoaDonNhap;
     }
 
-    public String getIDNguyenLieu() {
-        return IDNguyenLieu;
+    public String getIDSanPham() {
+        return IDSanPham;
     }
 
-    public void setIDNguyenLieu(String IDNguyenLieu) {
-        this.IDNguyenLieu = IDNguyenLieu;
+    public void setIDSanPham(String IDSanPham) {
+        this.IDSanPham = IDSanPham;
     }
 
     public int getSoLuong() {
@@ -57,18 +38,12 @@ public class ChiTietHoaDonNhapDTO {
         this.SoLuong = SoLuong;
     }
 
-    public float getGiaNhap() {
-        return GiaNhap;
+    public int getIDChiTietHoaDonNhap() {
+        return IDChiTietHoaDonNhap;
     }
 
-    public void setGiaNhap(float GiaNhap) {
-        this.GiaNhap = GiaNhap;
+    public void setIDChiTietHoaDonNhap(int IDChiTietHoaDonNhap) {
+        this.IDChiTietHoaDonNhap = IDChiTietHoaDonNhap;
     }
     
 }
-
-
-
-
-
-

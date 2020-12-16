@@ -21,7 +21,7 @@ import DTO.ChiTietHoaDonNhapDTO;
 import DTO.ChiTietNguyenLieuDTO;
 import DTO.KhachHangDTO;
 import DTO.KhuyenMaiDTO;
-import DTO.MonAnDTO;
+import DTO.SanPhamDTO;
 import DTO.NhaCungCapDTO;
 import DTO.NhanVienDTO;
 import DTO.PhanQuyenDTO;
@@ -300,7 +300,7 @@ public class GUIFormChon extends JDialog{
         if(MonAnBUS.dsMonAn == null) {            
                 Bus.docDSMonAn();            
         }       
-        for (MonAnDTO DTO : MonAnBUS.dsMonAn) {
+        for (SanPhamDTO DTO : MonAnBUS.dsMonAn) {
             if (DTO.getTrangThai().equals("Hiện")) {
                 Table.addRow(DTO);                    
             }

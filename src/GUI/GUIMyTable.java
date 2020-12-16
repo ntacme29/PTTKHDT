@@ -98,7 +98,7 @@ public class GUIMyTable extends JPanel {
     public void addRow(String[] data) {
         tbModel.addRow(data);
     }
-    public void addRow(MonAnDTO data) {
+    public void addRow(SanPhamDTO data) {
         addRow(new String[]{
                     data.getIDMonAn(),
                     data.getTenMonAn(),

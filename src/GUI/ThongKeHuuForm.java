@@ -168,7 +168,7 @@ class ThongKeMonAn extends JPanel {
 
         int tongTatCa = 0;
         float tongTien = 0;
-        for (MonAnDTO ma : qlmaBUS.getMonAnDTO()) {
+        for (SanPhamDTO ma : qlmaBUS.getMonAnDTO()) {
             int tongSoLuong = 0;
             float tongTienHoaDonTungSanPham = 0;
             tb.addRow(new String[]{ma.getIDMonAn(), ma.getTenMonAn(), "", "", "", "", PriceFormatter.format(ma.getDonGia()), ""});

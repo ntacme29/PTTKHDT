@@ -405,7 +405,7 @@ class ThongKe_Hoang extends JPanel {
 
         ArrayList<NhanVienDTO> dsnv = new ArrayList<>(); // danh sách lưu các nhân viên có làm hóa đơn
         ArrayList<KhachHangDTO> dskh = new ArrayList<>(); // danh sách lưu các khách hàng có làm hóa đơn
-        ArrayList<MonAnDTO> dsma = new ArrayList<>(); // lưu các mon an
+        ArrayList<SanPhamDTO> dsma = new ArrayList<>(); // lưu các mon an
 
         MyCheckDate mcd = new MyCheckDate(txNgay1, txNgay2);
 
@@ -442,7 +442,7 @@ class ThongKe_Hoang extends JPanel {
                 });
 
                 for (ChiTietHoaDonDTO cthd : dscthd) {
-                    MonAnDTO ma = qlmaBUS.getMonAnDTO(cthd.getIDMonAn());
+                    SanPhamDTO ma = qlmaBUS.getMonAnDTO(cthd.getIDMonAn());
                     // lọc
                     if (!mama.equals("") && !ma.getIDMonAn().equals(mama)) {
                         continue; // continue này sẽ lấy vòng lặp ChiTietHoaDon tiếp theo

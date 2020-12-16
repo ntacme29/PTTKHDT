@@ -54,7 +54,7 @@ public class XuatExcel {
             HSSFSheet sheet = workbook.createSheet("Món Ăn");//Tạo bảng tính Món Ăn
 
             MonAnBUS monanBUS = new MonAnBUS(); //Tạo biến monanBUS
-            ArrayList<MonAnDTO> list = monanBUS.getMonAnDTO();  // tạo danh sách lấy từ DTO thông qua BUS
+            ArrayList<SanPhamDTO> list = monanBUS.getMonAnDTO();  // tạo danh sách lấy từ DTO thông qua BUS
 
             int rownum = 0; //cột thứ 0
             Row row = sheet.createRow(rownum); //tạo biến row (hàng) trong sheet
@@ -67,7 +67,7 @@ public class XuatExcel {
             row.createCell(5, CellType.STRING).setCellValue("Loại");//Hàng 0. cột 5- kiểu String, giá trị Loại
             row.createCell(6, CellType.STRING).setCellValue("Số lượng");//Hàng 0. cột 6- kiểu String, giá trị Số lượng
 //Tạo vòng lập for chạy hết giá trị của list
-            for (MonAnDTO ma : list) {
+            for (SanPhamDTO ma : list) {
                 rownum++; //rownum (tăng lên giá trị, lúc nãy là 0 giờ là 1 - hàng thứ 1)
                 row = sheet.createRow(rownum);
 
