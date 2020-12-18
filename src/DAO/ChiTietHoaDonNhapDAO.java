@@ -21,7 +21,6 @@ public class ChiTietHoaDonNhapDAO {
             ResultSet rs = connection.excuteQuery(qry);  
             while (rs.next()) {
                     ChiTietHoaDonNhapDTO  cthdn = new ChiTietHoaDonNhapDTO();
-                    cthdn.setIDChiTietHoaDonNhap(rs.getInt("IDChiTIetHoaDonNhap"));
                     cthdn.setIDHoaDonNhap(rs.getString("IDHoaDonNhap"));
                     cthdn.setIDSanPham(rs.getString("IDSanPham"));
                     cthdn.setSoLuong(rs.getInt("SoLuong"));
@@ -36,8 +35,7 @@ public class ChiTietHoaDonNhapDAO {
     public void them(ChiTietHoaDonNhapDTO  cthdn ) {
         try{
             String qry ="INSERT INTO chitiethoadonnhap values (";
-            qry = qry + "'" + cthdn.getIDChiTietHoaDonNhap()+ "'";
-            qry = qry + "," + "'" + cthdn.getIDHoaDonNhap()+ "'";
+            qry = qry + "'" + cthdn.getIDHoaDonNhap()+ "'";
             qry = qry + "," + "'" + cthdn.getIDSanPham()+ "'";
             qry = qry + "," + "'" + cthdn.getSoLuong()+ "'";
             qry = qry + ")";

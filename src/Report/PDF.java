@@ -11,7 +11,7 @@ import BUS.HoaDonBUS;
 import BUS.HoaDonNhapBUS;
 import BUS.KhachHangBUS;
 import BUS.KhuyenMaiBUS;
-import BUS.MonAnBUS;
+import BUS.SanPhamBUS;
 import BUS.NguyenLieuBUS;
 import BUS.NhaCungCapBUS;
 import BUS.NhanVienBUS;
@@ -151,7 +151,7 @@ public class PDF {
             KhachHangBUS khBUS = new KhachHangBUS();
             NhanVienBUS nvBUS = new NhanVienBUS();
             KhuyenMaiBUS kmBUS = new KhuyenMaiBUS();
-            MonAnBUS maBUS = new MonAnBUS();
+            SanPhamBUS maBUS = new SanPhamBUS();
             ChiTietHoaDonBUS cthdBUS = new ChiTietHoaDonBUS();
 
             HoaDonDTO hd = hdBUS.getHoaDonDTO(mahd);

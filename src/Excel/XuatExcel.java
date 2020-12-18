@@ -53,7 +53,7 @@ public class XuatExcel {
             HSSFWorkbook workbook = new HSSFWorkbook();//Đọc và ghi file định dạng Microsoft Excel (XLS – định dạng hỗ trợ của Excel 2003) - Workbook: file
             HSSFSheet sheet = workbook.createSheet("Món Ăn");//Tạo bảng tính Món Ăn
 
-            MonAnBUS monanBUS = new MonAnBUS(); //Tạo biến monanBUS
+            SanPhamBUS monanBUS = new SanPhamBUS(); //Tạo biến monanBUS
             ArrayList<SanPhamDTO> list = monanBUS.getMonAnDTO();  // tạo danh sách lấy từ DTO thông qua BUS
 
             int rownum = 0; //cột thứ 0
@@ -247,7 +247,7 @@ public class XuatExcel {
             NhanVienBUS nvBUS=new NhanVienBUS();
             KhachHangBUS khBUS=new KhachHangBUS();
             KhuyenMaiBUS kmBUS=new KhuyenMaiBUS();
-            MonAnBUS maBUS=new MonAnBUS();
+            SanPhamBUS maBUS=new SanPhamBUS();
 
             int rownum = 0;
             Row row = sheet.createRow(rownum);

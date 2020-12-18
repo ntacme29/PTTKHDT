@@ -8,7 +8,7 @@ public class SanPhamDTO {
     public SanPhamDTO() {
     }
 
-    public SanPhamDTO(String IDSanPham, String TenSanPham, String IDDay, String IDThuongHieu, String IDNhaCungCap, String BaoHanh, String HinhAnh, int SoLuong, float Gia) {
+    public SanPhamDTO(String IDSanPham, String TenSanPham, String IDDay, String IDThuongHieu, String IDNhaCungCap, String BaoHanh, int SoLuong, float Gia, String HinhAnh) {
         this.IDSanPham = IDSanPham;
         this.TenSanPham = TenSanPham;
         this.IDDay = IDDay;

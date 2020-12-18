@@ -14,7 +14,7 @@ import BUS.HoaDonBUS;
 import BUS.HoaDonNhapBUS;
 import BUS.KhachHangBUS;
 import BUS.KhuyenMaiBUS;
-import BUS.MonAnBUS;
+import BUS.SanPhamBUS;
 import BUS.NguyenLieuBUS;
 import BUS.NhaCungCapBUS;
 import BUS.NhanVienBUS;
@@ -98,7 +98,7 @@ public class DocExcel {
                     String loai = cellIterator.next().getStringCellValue();
                     int soluong = (int) cellIterator.next().getNumericCellValue();
 
-                    MonAnBUS monanBUS = new MonAnBUS();
+                    SanPhamBUS monanBUS = new SanPhamBUS();
                     SanPhamDTO monanOld = monanBUS.getMonAnDTO(id);
 
                     if (monanOld != null) {
@@ -124,7 +124,7 @@ public class DocExcel {
                         }
                         if (hanhDongKhiTrung.contains("Ghi đè")) {
                             SanPhamDTO DTO=new SanPhamDTO(id, tenmon, donvitinh,dongia, hinhanh, loai, soluong, "Hiện");
-                            monanBUS.sua(DTO,MonAnBUS.timViTri(id));
+                            monanBUS.sua(DTO,SanPhamBUS.timViTri(id));
                             countGhiDe++;
                         } else {
                             countBoQua++;

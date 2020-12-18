@@ -22,7 +22,7 @@ public class LoaiDayDAO {
             if (result != null) {
                 while (result.next()) {
                     LoaiDayDTO ld = new LoaiDayDTO();
-                    ld.setIDDay(result.getString("IDDay"));
+                    ld.setIDLoaiDay(result.getString("IDDay"));
                     ld.setTenLoaiDay(result.getString("TenLoaiDay"));
                     LD.add(ld);
                 }
@@ -36,7 +36,7 @@ public class LoaiDayDAO {
     public void them(LoaiDayDTO LD) { //cần ghi lại khi qua class khác
         try {
             String qry = "INSERT INTO loaiday values (";
-            qry = qry + "'" + LD.getIDDay()+ "'";
+            qry = qry + "'" + LD.getIDLoaiDay()+ "'";
             qry = qry + "," + "'" + LD.getTenLoaiDay()+ "'";
             qry = qry + ")";
             connection.getStatement();
@@ -46,24 +46,11 @@ public class LoaiDayDAO {
         } catch (Exception ex) {
         }
     }
-
-    public void xoa(LoaiDayDTO LD) {
-        try {
-            String qry = "DELETE FROM loaiday";
-            qry = qry + " " + "WHERE IDDay = '" + LD.getIDDay()+ "'";
-            connection.getStatement();
-            connection.ExecuteUpdate(qry);
-            System.out.println(qry);
-            connection.closeConnect();
-        } catch (Exception e) {
-        }
-    }
-
     public void sua(LoaiDayDTO LD) { //cần ghi lại khi qua class khác
         try {
             String qry = "Update loaiday Set ";
             qry = qry + "TenLoaiDay=" + "'" + LD.getTenLoaiDay()+ "'";
-            qry = qry+" "+" WHERE IDDay=' "+LD.getIDDay()+"'";
+            qry = qry+" "+" WHERE IDDay=' "+LD.getIDLoaiDay()+"'";
             connection.getStatement();
             connection.ExecuteUpdate(qry);
             System.out.println(qry);
@@ -72,4 +59,17 @@ public class LoaiDayDAO {
         } catch (Exception ex) {
         }
     }
+    public void xoa(String LD) {
+        try {
+            String qry = "DELETE FROM loaiday";
+            qry = qry + " " + "WHERE IDDay = '" + LD+ "'";
+            connection.getStatement();
+            connection.ExecuteUpdate(qry);
+            System.out.println(qry);
+            connection.closeConnect();
+        } catch (Exception e) {
+        }
+    }
+
+    
 }

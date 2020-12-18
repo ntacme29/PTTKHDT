@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Đã sửa, còn sai là do phần excel
 package GUI;
 
-import BUS.MonAnBUS;
+import BUS.SanPhamBUS;
 import BUS.Tool;
 import DTO.SanPhamDTO;
 import Excel.DocExcel;
@@ -39,30 +35,26 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
-/**
- *
- * @author Nguyen
- */
 //Kế thừa từ 1 mẫu bố cục là GUIFormContent
-public class GUIMonAn extends GUIFormContent {
+public class GUISanPham extends GUIFormContent {
     //Nút lấy tên ảnh
     private JButton btnFileAnh;
     //Tạo mảng tiêu đề
-    public static String array_MonAn[] = {"Mã", "Tên món", "Đơn vị tính", "Giá", "Hình ảnh", "Loại", "Số lượng"};
+    public static String array_SanPham[] = {"Mã", "Tên", "Loại dây", "Thương hiệu", "Nhà cung cấp", "Bảo hành","Số lượng","Gia","Hình ảnh"};
     //Tạo JTable , GUIMyTable kế thừa từ JTable và được chỉnh sửa
-    private GUIMyTable table_MonAn;
-    //Panel chứa phần show thông tin món ăn
+    private GUIMyTable table_SanPham;
+    //Panel chứa phần show thông tin sản phẩm
     private JPanel Show;
-    //Tạo Dialog để thêm món ăn
-    private static JDialog Them_MonAn;
-    //Tạo Dialog để sửa món ăn
+    //Tạo Dialog để thêm sản phẩm
+    private static JDialog Them_SanPham;
+    //Tạo Dialog để sửa sản phẩm
     private static JDialog Sua;
     //Phần nhãn bên trong Dialog thêm sửa 
-    private JLabel label_MonAn[] = new JLabel[array_MonAn.length];
+    private JLabel label_SanPham[] = new JLabel[array_SanPham.length];
     //Phần textfield của thêm
-    private JTextField txt_MonAn_Them[] = new JTextField[array_MonAn.length];
+    private JTextField txt_SanPham_Them[] = new JTextField[array_SanPham.length];
     //Phần textfield của sửa
-    private JTextField txt_MonAn_Sua[] = new JTextField[array_MonAn.length];
+    private JTextField txt_SanPham_Sua[] = new JTextField[array_SanPham.length];
     //Tạo nhãn chứa hình ảnh
     private JLabel lbImage;
     //field thông tin khi click row
@@ -70,14 +62,16 @@ public class GUIMonAn extends GUIFormContent {
     //Các textfield trong thanh tìm kiếm
     public JTextField Ten, Tu_DonGia, Den_DonGia, Tu_SoLuong, Den_SoLuong;
     //Tạo đối tượng cho BUS
-    MonAnBUS BUS = new MonAnBUS();
+    SanPhamBUS BUS = new SanPhamBUS();
     //Tạo cờ hiệu cho việc các Dialog có được tắt đúng cách hay không
     private int cohieu = 0;
-    private JComboBox cbDonViTinh_Them,cbDonViTinh_Sua;
-    private String array_DonViTinh[]={"Dĩa","Phần","Ly"};
-    private JComboBox cbLoai_Them,cbLoai_Sua;
-    private String array_Loai[]={"Món chính","Món phụ","Nước uống"};
-    public GUIMonAn() {
+    private JComboBox cbLoaiDay_Them,cbLoaiDay_Sua;
+    private String array_LoaiDay[]={"Dĩa","Phần","Ly"};
+    private JComboBox cbThuongHieu_Them,cbThuongHieu_Sua;
+    private String array_ThuongHieu[]={"Dĩa","Phần","Ly"};
+    private JComboBox cbNhaCungCap_Them,cbNhaCungCap_Sua;
+    private String array_NhaCungCap[]={"Món chính","Món phụ","Nước uống"};
+    public GUISanPham() {
         super();
     }
 
@@ -85,16 +79,16 @@ public class GUIMonAn extends GUIFormContent {
     //Tạo Panel chưa Table
     protected JPanel Table() {
         JPanel panel = new JPanel(null);
-        //Tạo đối tượng cho table_MonAn
-        table_MonAn = new GUIMyTable();
+        //Tạo đối tượng cho table_SanPham
+        table_SanPham = new GUIMyTable();
         //Tạo tiêu đề bảng
-        table_MonAn.setHeaders(array_MonAn);
+        table_SanPham.setHeaders(array_SanPham);
         //Hàm đọc database
         docDB();
         //Set kích thước và vị trí
-        table_MonAn.pane.setPreferredSize(new Dimension(GUImenu.width_content * 90 / 100, 300));
-        table_MonAn.setBounds(0, 0, GUImenu.width_content, 300);
-        panel.add(table_MonAn);
+        table_SanPham.pane.setPreferredSize(new Dimension(GUImenu.width_content * 90 / 100, 300));
+        table_SanPham.setBounds(0, 0, GUImenu.width_content, 300);
+        panel.add(table_SanPham);
 
         //Tạo phần show thông tin
         Show = Show();
@@ -104,66 +98,74 @@ public class GUIMonAn extends GUIFormContent {
         return panel;
     }
 
-    //Hàm tạo Dialog thêm món ăn
+    //Hàm tạo Dialog thêm sản phẩm
     private void Them_Frame() {
         JFrame f = new JFrame();
         //Để cờ hiệu với giá trị 0 với ý nghĩa không được bấm ra khỏi Dialog trừ nút Thoát
         cohieu = 0;
-        Them_MonAn = new JDialog(f);
-        Them_MonAn.setLayout(null);
-        Them_MonAn.setSize(500, 500);
+        Them_SanPham = new JDialog(f);
+        Them_SanPham.setLayout(null);
+        Them_SanPham.setSize(500, 500);
         //Set vị trí của Dialog
         //https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
-        Them_MonAn.setLocationRelativeTo(null);
+        Them_SanPham.setLocationRelativeTo(null);
         //Tắt thanh công cụ mặc định
-        Them_MonAn.setUndecorated(true);
+        Them_SanPham.setUndecorated(true);
 
         //Tạo tiêu đề và set hình thức
-        JLabel Title = new JLabel("Thêm món ăn");
+        JLabel Title = new JLabel("Thêm sản phẩm");
         Title.setFont(new Font("Time New Roman", Font.BOLD, 21));
         Title.setForeground(Color.decode("#FF4081"));
         Title.setBounds(150, 0, 200, 40);
-        Them_MonAn.add(Title);
+        Them_SanPham.add(Title);
         int y = 50;
         //Tạo tự động các label và textfield
-        for (int i = 0; i < array_MonAn.length; i++) {
-            label_MonAn[i] = new JLabel(array_MonAn[i]);
-            label_MonAn[i].setBounds(100, y, 100, 30);
-            Them_MonAn.add(label_MonAn[i]);
+        for (int i = 0; i < array_SanPham.length; i++) {
+            label_SanPham[i] = new JLabel(array_SanPham[i]);
+            label_SanPham[i].setBounds(100, y, 100, 30);
+            Them_SanPham.add(label_SanPham[i]);
             //Tạo combobox
             if(i==2)
             {
-                cbDonViTinh_Them=new JComboBox(array_DonViTinh);
-                cbDonViTinh_Them.setBounds(200, y, 150, 30);
-                Them_MonAn.add(cbDonViTinh_Them);
+                cbLoaiDay_Them=new JComboBox(array_LoaiDay);
+                cbLoaiDay_Them.setBounds(200, y, 150, 30);
+                Them_SanPham.add(cbLoaiDay_Them);
                 y+=40;
                 continue;
             }
-            if(i==5)
+            if(i==3)
             {
-                cbLoai_Them=new JComboBox(array_Loai);
-                cbLoai_Them.setBounds(200, y, 150, 30);
-                Them_MonAn.add(cbLoai_Them);
+                cbThuongHieu_Them=new JComboBox(array_ThuongHieu);
+                cbThuongHieu_Them.setBounds(200, y, 150, 30);
+                Them_SanPham.add(cbThuongHieu_Them);
                 y+=40;
                 continue;
             }
-            txt_MonAn_Them[i] = new JTextField();
-            txt_MonAn_Them[i].setBounds(200, y, 150, 30);
+            if(i==4)
+            {
+                cbNhaCungCap_Them=new JComboBox(array_NhaCungCap);
+                cbNhaCungCap_Them.setBounds(200, y, 150, 30);
+                Them_SanPham.add(cbNhaCungCap_Them);
+                y+=40;
+                continue;
+            }
+            txt_SanPham_Them[i] = new JTextField();
+            txt_SanPham_Them[i].setBounds(200, y, 150, 30);
             //Tạo nút để lấy tên ảnh 
-            if (i == 4) {
+            if (i == 8) {
                 btnFileAnh = new JButton();
                 btnFileAnh.setIcon(new ImageIcon(this.getClass().getResource("/Images/Icon/hinhanh-30.png")));
                 btnFileAnh.addActionListener((ae) -> {
                     btnFileAnh_Click("Thêm");
                 });
                 btnFileAnh.setBounds(360, y, 40, 40);
-                Them_MonAn.add(btnFileAnh);
+                Them_SanPham.add(btnFileAnh);
             }
             y += 40;
-            Them_MonAn.add(txt_MonAn_Them[i]);
+            Them_SanPham.add(txt_SanPham_Them[i]);
         }
         
-        txt_MonAn_Them[4].setEditable(false); // không cho người dùng nhập hình ảnh
+        txt_SanPham_Them[8].setEditable(false); // không cho người dùng nhập hình ảnh
         //Tạo nút lưu
         JButton Luu = new JButton("Lưu");
         Luu.setBackground(Color.decode("#90CAF9"));
@@ -173,41 +175,38 @@ public class GUIMonAn extends GUIFormContent {
             @Override
             public void mousePressed(MouseEvent evt) {
                 cohieu=1;
-                int a = JOptionPane.showConfirmDialog(Them_MonAn, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
+                int a = JOptionPane.showConfirmDialog(Them_SanPham, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
+                    SanPhamDTO DTO = new SanPhamDTO();
+                    DTO.setIDSanPham(txt_SanPham_Them[0].getText());
+                    DTO.setTenSanPham(txt_SanPham_Them[1].getText());
+                    DTO.setIDDay(cbLoaiDay_Them.getSelectedItem().toString());
+                   DTO.setIDThuongHieu(cbThuongHieu_Them.getSelectedItem().toString());
+                   DTO.setIDNhaCungCap(cbNhaCungCap_Them.getSelectedItem().toString());
+                   DTO.setBaoHanh(txt_SanPham_Them[5].getText());
+                   DTO.setSoLuong(Integer.parseInt(txt_SanPham_Them[6].getText()));
+                   DTO.setGia(Float.parseFloat(txt_SanPham_Them[7].getText()));
+                   DTO.setHinhAnh(txt_SanPham_Them[8].getText());
                     //Kiểm tra luồng dữ liệu 
-                    if (checkTextThem(txt_MonAn_Them[0].getText(),
-                            txt_MonAn_Them[1].getText(),
-                            cbDonViTinh_Them.getSelectedItem().toString(),
-                            txt_MonAn_Them[3].getText(),
-                            txt_MonAn_Them[4].getText(),
-                            cbLoai_Them.getSelectedItem().toString(),
-                            txt_MonAn_Them[6].getText())) {
+                    if (checkTextThem(DTO)) {
                         //Tạo đối tượng và truyền dữ liệu trực tiếp vào 
-                        SanPhamDTO DTO = new SanPhamDTO(txt_MonAn_Them[0].getText(),
-                                txt_MonAn_Them[1].getText(),
-                                cbDonViTinh_Them.getSelectedItem().toString(),
-                                Integer.parseInt(txt_MonAn_Them[3].getText()),
-                                txt_MonAn_Them[4].getText(),
-                                cbLoai_Them.getSelectedItem().toString(),
-                                Integer.parseInt(txt_MonAn_Them[6].getText()),
-                                "Hiện");
+                        
                         //Gọi hàm thêm ở bus và truyền đối tượng DTO vào
                         BUS.them(DTO);
                         //Thêm vào table
-                        table_MonAn.addRow(DTO);
+                        table_SanPham.addRow(DTO);
                         //clear textfield trong Them_frame
                         clearThem_Frame();
                         
                         //Lệnh này để đóng dialog
-                        Them_MonAn.dispose();
+                        Them_SanPham.dispose();
                     }
                 }
                 else
                     cohieu=0;
             }
         });
-        Them_MonAn.add(Luu);
+        Them_SanPham.add(Luu);
         //Tạo nút thoát
         JButton Thoat = new JButton("Thoát");
         Thoat.setBackground(Color.decode("#90CAF9"));
@@ -221,13 +220,13 @@ public class GUIMonAn extends GUIFormContent {
                 //Tắt cờ hiệu đi 
                 cohieu = 1;
                 //Lệnh này để đóng dialog
-                Them_MonAn.dispose();
+                Them_SanPham.dispose();
             }
         });
 
-        Them_MonAn.add(Thoat);
+        Them_SanPham.add(Thoat);
         //Chặn việc thao tác ngoài khi chưa tắt dialog gây lỗi phát sinh
-        Them_MonAn.addWindowListener(new WindowAdapter() {
+        Them_SanPham.addWindowListener(new WindowAdapter() {
             @Override
             public void windowDeactivated(WindowEvent e) {
                 if (cohieu == 0) {
@@ -237,14 +236,14 @@ public class GUIMonAn extends GUIFormContent {
 
         });
 
-        String maMonAn = Tool.tangMa(MonAnBUS.getMaMonAnCuoi()); //lấy mã tự động
-        txt_MonAn_Them[0].setEditable(false);
-        txt_MonAn_Them[0].setText(maMonAn); //set mã lên textfield
-        Them_MonAn.setVisible(true);
+        String maSanPham = Tool.tangMa(SanPhamBUS.getMaSanPhamCuoi()); //lấy mã tự động
+        txt_SanPham_Them[0].setEditable(false);
+        txt_SanPham_Them[0].setText(maSanPham); //set mã lên textfield
+        Them_SanPham.setVisible(true);
 
     }
 
-    //Hàm tạo Dialog sửa món ăn
+    //Hàm tạo Dialog sửa sản phẩm
     private void Sua_Frame() {
         JFrame f = new JFrame();
         //Để cờ hiệu với giá trị 0 với ý nghĩa không được bấm ra khỏi Dialog trừ nút Thoát
@@ -257,39 +256,48 @@ public class GUIMonAn extends GUIFormContent {
         Sua.setLocationRelativeTo(null);
         Sua.setUndecorated(true);
         //Tạo tiêu đề
-        JLabel Title = new JLabel("Sửa món ăn");
+        JLabel Title = new JLabel("Sửa sản phẩm");
         Title.setFont(new Font("Time New Roman", Font.BOLD, 21));
         Title.setForeground(Color.decode("#FF4081"));
         Title.setBounds(150, 0, 200, 40);
         Sua.add(Title);
         int y = 50;
         //Tạo tự động các lable và textfield
-        for (int i = 0; i < array_MonAn.length; i++) {
-            label_MonAn[i] = new JLabel(array_MonAn[i]);
-            label_MonAn[i].setBounds(100, y, 100, 30);
-            Sua.add(label_MonAn[i]);
+        for (int i = 0; i < array_SanPham.length; i++) {
+            label_SanPham[i] = new JLabel(array_SanPham[i]);
+            label_SanPham[i].setBounds(100, y, 100, 30);
+            Sua.add(label_SanPham[i]);
             //Tạo combobox
             if(i==2)
             {
-                cbDonViTinh_Sua=new JComboBox(array_DonViTinh);
-                cbDonViTinh_Sua.setBounds(200, y, 150, 30);
-                Sua.add(cbDonViTinh_Sua);
+                cbLoaiDay_Sua=new JComboBox(array_LoaiDay);
+                cbLoaiDay_Sua.setBounds(200, y, 150, 30);
+                Sua.add(cbLoaiDay_Sua);
                 y+=40;
                 continue;
             }
             //Tạo combobox
-            if(i==5)
+            if(i==3)
             {
-                cbLoai_Sua=new JComboBox(array_Loai);
-                cbLoai_Sua.setBounds(200, y, 150, 30);
-                Sua.add(cbLoai_Sua);
+                cbThuongHieu_Sua=new JComboBox(array_ThuongHieu);
+                cbThuongHieu_Sua.setBounds(200, y, 150, 30);
+                Sua.add(cbThuongHieu_Sua);
                 y+=40;
                 continue;
             }
-            txt_MonAn_Sua[i] = new JTextField();
-            txt_MonAn_Sua[i].setBounds(200, y, 150, 30);
+            //Tạo combobox
+            if(i==4)
+            {
+                cbNhaCungCap_Sua=new JComboBox(array_NhaCungCap);
+                cbNhaCungCap_Sua.setBounds(200, y, 150, 30);
+                Sua.add(cbNhaCungCap_Sua);
+                y+=40;
+                continue;
+            }
+            txt_SanPham_Sua[i] = new JTextField();
+            txt_SanPham_Sua[i].setBounds(200, y, 150, 30);
             //Tạo nút để lấy file ảnh
-            if (i == 4) {
+            if (i == 8) {
                 btnFileAnh = new JButton();
                 btnFileAnh.setIcon(new ImageIcon(this.getClass().getResource("/Images/Icon/hinhanh-30.png")));
                 btnFileAnh.addActionListener((ae) -> {
@@ -300,10 +308,10 @@ public class GUIMonAn extends GUIFormContent {
             }
 
             y += 40;
-            Sua.add(txt_MonAn_Sua[i]);
+            Sua.add(txt_SanPham_Sua[i]);
         }
         
-        txt_MonAn_Sua[4].setEditable(false); // không cho người dùng nhập hình ảnh
+        txt_SanPham_Sua[4].setEditable(false); // không cho người dùng nhập hình ảnh
         //Lưu tất cả dữ liệu trên textfield lên database
         JButton Luu = new JButton("Lưu");
         Luu.setBackground(Color.decode("#90CAF9"));
@@ -315,16 +323,20 @@ public class GUIMonAn extends GUIFormContent {
                 cohieu = 1;
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
+                    SanPhamDTO DTO = new SanPhamDTO();
+                    DTO.setIDSanPham(txt_SanPham_Sua[0].getText());
+                    DTO.setTenSanPham(txt_SanPham_Sua[1].getText());
+                    DTO.setIDDay(cbLoaiDay_Sua.getSelectedItem().toString());
+                   DTO.setIDThuongHieu(cbThuongHieu_Sua.getSelectedItem().toString());
+                   DTO.setIDNhaCungCap(cbNhaCungCap_Sua.getSelectedItem().toString());
+                   DTO.setBaoHanh(txt_SanPham_Sua[5].getText());
+                   DTO.setSoLuong(Integer.parseInt(txt_SanPham_Sua[6].getText()));
+                   DTO.setGia(Float.parseFloat(txt_SanPham_Sua[7].getText()));
+                   DTO.setHinhAnh(txt_SanPham_Sua[8].getText());
                     //Chạy hàm checkText để ràng buộc dữ liệu 
-                    if (checkTextSua(txt_MonAn_Sua[0].getText(),
-                            txt_MonAn_Sua[1].getText(),
-                            cbDonViTinh_Sua.getSelectedItem().toString(),
-                            txt_MonAn_Sua[3].getText(),
-                            txt_MonAn_Sua[4].getText(),
-                            cbLoai_Sua.getSelectedItem().toString(),
-                            txt_MonAn_Sua[6].getText())) {
+                    if (checkTextSua(DTO)) {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    
-                        buttonLuu_Sua();
+                        buttonLuu_Sua(DTO);
                         
                         //Lệnh này để tắt dialog
                         Sua.dispose();
@@ -450,20 +462,17 @@ public class GUIMonAn extends GUIFormContent {
     }
 
     public void docDB() {
-        //Nếu dsMonAn vẫn chưa được đọc thì chạy hàm đọc
-        if (MonAnBUS.dsMonAn == null) {
+        //Nếu dsSanPham vẫn chưa được đọc thì chạy hàm đọc
+        if (SanPhamBUS.dsSanPham == null) {
             try {
-                BUS.docDSMonAn();
+                BUS.docDSSanPham();
             } catch (Exception ex) {
-                Logger.getLogger(GUIMonAn.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISanPham.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        //Chỉ hiện những món ăn ở trạng thái hiện , trạng thái ẩn là khi xóa
-        for (SanPhamDTO monAnDTO : MonAnBUS.dsMonAn) {
-            if (monAnDTO.getTrangThai().equals("Hiện")) {
-                table_MonAn.addRow(monAnDTO);
-
-            }
+        //Chỉ hiện những sản phẩm ở trạng thái hiện , trạng thái ẩn là khi xóa
+        for (SanPhamDTO monAnDTO : SanPhamBUS.dsSanPham) {
+                table_SanPham.addRow(monAnDTO);
         }
     }
 
@@ -474,134 +483,98 @@ public class GUIMonAn extends GUIFormContent {
 
     //Ràng buộc dữ liệu
     //Thứ tự truyền vào lần lượt trùng với các thứ tự ô text
-    public boolean checkTextThem(String MaMonAn, String TenMonAn, String DonViTinh, String DonGia, String HinhAnh, String Loai, String SoLuong) {
+    public boolean checkTextThem(SanPhamDTO DTO) {
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Segoe UI", 0, 20)));
-        if (MaMonAn.equals("")
-                || TenMonAn.equals("")
-                || DonViTinh.equals("")
-                || DonGia.equals("")
-                || HinhAnh.equals("")
-                || Loai.equals("")
-                || SoLuong.equals("")) {
+        if (DTO.getIDSanPham().equals("")
+                ||DTO.getTenSanPham().equals("")
+                ||DTO.getBaoHanh().equals("")
+                ||String.valueOf(DTO.getSoLuong()).equals("")
+                ||String.valueOf(DTO.getGia()).equals("")
+                ||DTO.getHinhAnh().equals("")) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        } else if (!Tool.isName(Tool.removeAccent(TenMonAn))) {
-            JOptionPane.showMessageDialog(null, "Tên món ăn không được chứa ký tự đặc biệt");
-            txt_MonAn_Them[1].requestFocus();
-        } else if (!Tool.isLength50(TenMonAn)) {
-            JOptionPane.showMessageDialog(null, "Tên món ăn không được quá 50 ký tự");
-            txt_MonAn_Them[1].requestFocus();
-        }
-        
-        else if (!Tool.isName(Tool.removeAccent(DonViTinh))) {
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenSanPham()))) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được chứa ký tự đặc biệt");
+            txt_SanPham_Them[1].requestFocus();
+        } else if (!Tool.isLength50(DTO.getTenSanPham())) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được quá 50 ký tự");
+            txt_SanPham_Them[1].requestFocus();
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getBaoHanh()))) {
             JOptionPane.showMessageDialog(null, "Đơn vị tính không được chứa ký tự đặc biệt");
-            txt_MonAn_Them[2].requestFocus();
-        } else if (!Tool.isLength50(DonViTinh)) {
+            txt_SanPham_Them[5].requestFocus();
+        } else if (!Tool.isLength50(DTO.getBaoHanh())) {
             JOptionPane.showMessageDialog(null, "Đơn vị tính không được quá 50 ký tự");
-            txt_MonAn_Them[2].requestFocus();
-        }
-        
-        else if (!Tool.isNumber(DonGia)) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải là số nguyên dương");
-            txt_MonAn_Them[3].requestFocus();
-        } else if (!Tool.isName((DonGia))) {
-            JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
-            txt_MonAn_Them[3].requestFocus();
-        } else if (!Tool.isTenThousandToOneMil(DonGia)) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
-            txt_MonAn_Them[3].requestFocus();
-        }
-        
-        else if (!Tool.isHinhAnh(HinhAnh)) {
-            JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
-            txt_MonAn_Them[4].requestFocus();
-        }
-        
-        else if (!Tool.isName(Tool.removeAccent(Loai))) {
-            JOptionPane.showMessageDialog(null, "Loại không được chứa ký tự đặc biệt");
-            txt_MonAn_Them[5].requestFocus();
-        } else if (!Tool.isLength50(Loai)) {
-            JOptionPane.showMessageDialog(null, "Loại không được quá 50 ký tự");
-            txt_MonAn_Them[5].requestFocus();
-        } else if (!Tool.isNumber(SoLuong)) {
+            txt_SanPham_Them[5].requestFocus();
+        }else if (!Tool.isNumber(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng phải là số nguyên dương");
-            txt_MonAn_Them[6].requestFocus();
-        } else if (!Tool.isName(SoLuong)) {
-
+            txt_SanPham_Them[6].requestFocus();
+        } else if (!Tool.isName(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng không được chứa ký tự đặc biệt");
-            txt_MonAn_Them[6].requestFocus();
-        } else if (!Tool.isOneToOneThousand(SoLuong)) {
-
+            txt_SanPham_Them[6].requestFocus();
+        } else if (!Tool.isOneToOneThousand(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng phải nằm trong khoảng 1 đến 1.000");
-            txt_MonAn_Them[6].requestFocus();
-        } else {
+            txt_SanPham_Them[6].requestFocus();
+        } else if (!Tool.isNumber(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá phải là số nguyên dương");
+            txt_SanPham_Them[7].requestFocus();
+        } else if (!Tool.isName(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
+            txt_SanPham_Them[7].requestFocus();
+        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
+            txt_SanPham_Them[7].requestFocus();
+        } else if (!Tool.isHinhAnh(DTO.getHinhAnh())) {
+            JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
+            txt_SanPham_Them[8].requestFocus();
+        }  else {
             return true;
 
         }
         return false;
     }
     
-    public boolean checkTextSua(String MaMonAn, String TenMonAn, String DonViTinh, String DonGia, String HinhAnh, String Loai, String SoLuong) {
+    public boolean checkTextSua(SanPhamDTO DTO) {
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Segoe UI", 0, 20)));
-        if (MaMonAn.equals("")
-                || TenMonAn.equals("")
-                || DonViTinh.equals("")
-                || DonGia.equals("")
-                || HinhAnh.equals("")
-                || Loai.equals("")
-                || SoLuong.equals("")) {
+        if (DTO.getIDSanPham().equals("")
+                ||DTO.getTenSanPham().equals("")
+                ||DTO.getBaoHanh().equals("")
+                ||String.valueOf(DTO.getSoLuong()).equals("")
+                ||String.valueOf(DTO.getGia()).equals("")
+                ||DTO.getHinhAnh().equals("")) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        } else if (!Tool.isName(Tool.removeAccent(TenMonAn))) {
-            JOptionPane.showMessageDialog(null, "Tên món ăn không được chứa ký tự đặc biệt");
-            txt_MonAn_Sua[1].requestFocus();
-        } else if (!Tool.isLength50(TenMonAn)) {
-            JOptionPane.showMessageDialog(null, "Tên món ăn không được quá 50 ký tự");
-            txt_MonAn_Sua[1].requestFocus();
-        }
-        
-        else if (!Tool.isName(Tool.removeAccent(DonViTinh))) {
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenSanPham()))) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được chứa ký tự đặc biệt");
+            txt_SanPham_Sua[1].requestFocus();
+        } else if (!Tool.isLength50(DTO.getTenSanPham())) {
+            JOptionPane.showMessageDialog(null, "Tên sản phẩm không được quá 50 ký tự");
+            txt_SanPham_Sua[1].requestFocus();
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getBaoHanh()))) {
             JOptionPane.showMessageDialog(null, "Đơn vị tính không được chứa ký tự đặc biệt");
-            txt_MonAn_Sua[2].requestFocus();
-        } else if (!Tool.isLength50(DonViTinh)) {
+            txt_SanPham_Sua[5].requestFocus();
+        } else if (!Tool.isLength50(DTO.getBaoHanh())) {
             JOptionPane.showMessageDialog(null, "Đơn vị tính không được quá 50 ký tự");
-            txt_MonAn_Sua[2].requestFocus();
-        }
-        
-        else if (!Tool.isNumber(DonGia)) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải là số nguyên dương");
-            txt_MonAn_Sua[3].requestFocus();
-        } else if (!Tool.isName((DonGia))) {
-            JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
-            txt_MonAn_Sua[3].requestFocus();
-        } else if (!Tool.isTenThousandToOneMil(DonGia)) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
-            txt_MonAn_Sua[3].requestFocus();
-        }
-        
-        else if (!Tool.isHinhAnh(HinhAnh)) {
-            JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
-            txt_MonAn_Sua[4].requestFocus();
-        }
-        
-        else if (!Tool.isName(Tool.removeAccent(Loai))) {
-            JOptionPane.showMessageDialog(null, "Loại không được chứa ký tự đặc biệt");
-            txt_MonAn_Sua[5].requestFocus();
-        } else if (!Tool.isLength50(Loai)) {
-            JOptionPane.showMessageDialog(null, "Loại không được quá 50 ký tự");
-            txt_MonAn_Sua[5].requestFocus();
-        } else if (!Tool.isNumber(SoLuong)) {
-
-            
+            txt_SanPham_Sua[5].requestFocus();
+        }else if (!Tool.isNumber(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng phải là số nguyên dương");
-            txt_MonAn_Sua[6].requestFocus();
-        } else if (!Tool.isName(SoLuong)) {
-
+            txt_SanPham_Sua[6].requestFocus();
+        } else if (!Tool.isName(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng không được chứa ký tự đặc biệt");
-            txt_MonAn_Sua[6].requestFocus();
-        } else if (!Tool.isOneToOneThousand(SoLuong)) {
-
+            txt_SanPham_Sua[6].requestFocus();
+        } else if (!Tool.isOneToOneThousand(String.valueOf(DTO.getSoLuong()))) {
             JOptionPane.showMessageDialog(null, "Số lượng phải nằm trong khoảng 1 đến 1.000");
-            txt_MonAn_Sua[6].requestFocus();
-        } else {
+            txt_SanPham_Sua[6].requestFocus();
+        } else if (!Tool.isNumber(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá phải là số nguyên dương");
+            txt_SanPham_Sua[7].requestFocus();
+        } else if (!Tool.isName(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
+            txt_SanPham_Sua[7].requestFocus();
+        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
+            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
+            txt_SanPham_Sua[7].requestFocus();
+        } else if (!Tool.isHinhAnh(DTO.getHinhAnh())) {
+            JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
+            txt_SanPham_Sua[8].requestFocus();
+        }  else {
             return true;
 
         }
@@ -609,35 +582,30 @@ public class GUIMonAn extends GUIFormContent {
     }
 
     //Hàm lưu dữ liệu khi sửa
-    public void buttonLuu_Sua() {
-        int row = table_MonAn.tb.getSelectedRow();
-        int colum = table_MonAn.tb.getSelectedColumn();
-        String maMonAn = table_MonAn.tbModel.getValueAt(row, colum).toString();
+    public void buttonLuu_Sua(SanPhamDTO DTO) {
+        int row = table_SanPham.tb.getSelectedRow();
+        int colum = table_SanPham.tb.getSelectedColumn();
+        String maSanPham = table_SanPham.tbModel.getValueAt(row, colum).toString();
             //Sửa dữ liệu trên bảng
             //model là ruột JTable   
             //set tự động giá trị cho model
-            for (int j = 0; j < array_MonAn.length; j++) {
-                if(j!=2&&j!=5)
-                    table_MonAn.tbModel.setValueAt(txt_MonAn_Sua[j].getText(), row, j);
+            for (int j = 0; j < array_SanPham.length; j++) {
+                if(j<2||j>4)
+                    table_SanPham.tbModel.setValueAt(txt_SanPham_Sua[j].getText(), row, j);
                 else if(j==2)
-                    table_MonAn.tbModel.setValueAt(cbDonViTinh_Sua.getSelectedItem().toString(), row, j);
-                else if(j==5)
-                    table_MonAn.tbModel.setValueAt(cbLoai_Sua.getSelectedItem().toString(), row, j);
+                    table_SanPham.tbModel.setValueAt(cbLoaiDay_Sua.getSelectedItem().toString(), row, j);
+                else if(j==3)
+                    table_SanPham.tbModel.setValueAt(cbThuongHieu_Sua.getSelectedItem().toString(), row, j);
+                else if(j==4)
+                    table_SanPham.tbModel.setValueAt(cbNhaCungCap_Sua.getSelectedItem().toString(), row, j);
+                
             }
 
-            table_MonAn.tb.setModel(table_MonAn.tbModel);
+            table_SanPham.tb.setModel(table_SanPham.tbModel);
 
             //Sửa dữ liệu trong database và arraylist trên bus
-            //Tạo đối tượng monAnDTO và truyền dữ liệu trực tiếp thông qua constructor
-            SanPhamDTO DTO = new SanPhamDTO(txt_MonAn_Sua[0].getText(),
-                    txt_MonAn_Sua[1].getText(),
-                    cbDonViTinh_Sua.getSelectedItem().toString(),
-                    Integer.parseInt(txt_MonAn_Sua[3].getText()),
-                    txt_MonAn_Sua[4].getText(),
-                    cbLoai_Sua.getSelectedItem().toString(),
-                    Integer.parseInt(txt_MonAn_Sua[6].getText()));
             //Tìm vị trí của row cần sửa
-            int index = MonAnBUS.timViTri(maMonAn);
+            int index = SanPhamBUS.timViTri(maSanPham);
             //Truyền dữ liệu và vị trí vào bus
             BUS.sua(DTO, index);
 //    }
@@ -645,9 +613,9 @@ public class GUIMonAn extends GUIFormContent {
 
     //Clear textfield
     public void clearThem_Frame() {
-        for (int i = 0; i < GUIMonAn.array_MonAn.length; i++) {
+        for (int i = 0; i < GUISanPham.array_SanPham.length; i++) {
             if(i!=2&&i!=5)
-            txt_MonAn_Them[i].setText("");
+            txt_SanPham_Them[i].setText("");
         }
     }
 
@@ -655,30 +623,37 @@ public class GUIMonAn extends GUIFormContent {
     @Override
     protected void Sua_click(MouseEvent evt) {
 
-        int i = table_MonAn.tb.getSelectedRow();
+        int i = table_SanPham.tb.getSelectedRow();
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 hàng để sửa");
         } else {
             //Hiện Dialog lên và set dữ liệu vào các field
             Sua_Frame();
-            txt_MonAn_Sua[0].setEnabled(false);
+            txt_SanPham_Sua[0].setEnabled(false);
             //Set tự động giá trị các field
-            for (int j = 0; j < array_MonAn.length; j++) {
-                if(j!=2&&j!=5)
-                    txt_MonAn_Sua[j].setText(table_MonAn.tb.getValueAt(i, j).toString());
+            for (int j = 0; j < array_SanPham.length; j++) {
+                if(j<2||j>4)
+                    txt_SanPham_Sua[j].setText(table_SanPham.tb.getValueAt(i, j).toString());
                 else if(j==2)
                 {
                     int k;
-                    for(k=0;k<array_DonViTinh.length;k++)
-                        if(table_MonAn.tb.getValueAt(i, j).toString().equals(array_DonViTinh[k]))
-                            cbDonViTinh_Sua.setSelectedIndex(k);
+                    for(k=0;k<array_LoaiDay.length;k++)
+                        if(table_SanPham.tb.getValueAt(i, j).toString().equals(array_LoaiDay[k]))
+                            cbLoaiDay_Sua.setSelectedIndex(k);
                 }
-                else if(j==5)
+                else if(j==3)
                 {
                     int k;
-                    for(k=0;k<array_Loai.length;k++)
-                        if(table_MonAn.tb.getValueAt(i, j).toString().equals(array_Loai[k]))
-                            cbLoai_Sua.setSelectedIndex(k);
+                    for(k=0;k<array_ThuongHieu.length;k++)
+                        if(table_SanPham.tb.getValueAt(i, j).toString().equals(array_ThuongHieu[k]))
+                            cbThuongHieu_Sua.setSelectedIndex(k);
+                }
+                else if(j==4)
+                {
+                    int k;
+                    for(k=0;k<array_NhaCungCap.length;k++)
+                        if(table_SanPham.tb.getValueAt(i, j).toString().equals(array_NhaCungCap[k]))
+                            cbNhaCungCap_Sua.setSelectedIndex(k);
                 }
             }
 
@@ -688,29 +663,29 @@ public class GUIMonAn extends GUIFormContent {
     //Hàm sự kiện khi click vào nút xóa
     @Override
     protected void Xoa_click(MouseEvent evt) {
-        int row = table_MonAn.tb.getSelectedRow();
+        int row = table_SanPham.tb.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn hàng muốn xóa");
         } else {
             int option = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn xóa?", "", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                String maMonAn = table_MonAn.tbModel.getValueAt(row, 0).toString();
-                //truyền mã món ăn vào hàm timViTri ở MonAnBUS 
-                int index = MonAnBUS.timViTri(maMonAn);
+                String maSanPham = table_SanPham.tbModel.getValueAt(row, 0).toString();
+                //truyền mã sản phẩm vào hàm timViTri ở SanPhamBUS 
+                int index = SanPhamBUS.timViTri(maSanPham);
                 //Xóa hàng ở table
-                table_MonAn.tbModel.removeRow(row);
+                table_SanPham.tbModel.removeRow(row);
                 //Xóa ở arraylist và đổi chế độ ẩn ở database
-                BUS.xoa(maMonAn, index);
+                BUS.xoa(maSanPham, index);
             }
         }
 
     }
 
-    //Show thông tin món ăn
+    //Show thông tin sản phẩm
     private JPanel Show() {
         //Panel chung
         JPanel panel = new JPanel(null);
-        //Panel chứa các text thông tin món ăn
+        //Panel chứa các text thông tin sản phẩm
         JPanel ChiTiet = new JPanel(null);
 
         ChiTiet.setBounds(500, 0, 500, 300);
@@ -726,8 +701,8 @@ public class GUIMonAn extends GUIFormContent {
         txSoLuong = new JTextField();
 
         // Tạo border có tiêu đề
-        txMaMA.setBorder(BorderFactory.createTitledBorder("Mã món ăn"));
-        txTenMA.setBorder(BorderFactory.createTitledBorder("Tên món ăn"));
+        txMaMA.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));
+        txTenMA.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
         txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
 //         Set các textfield không edit được
@@ -754,10 +729,10 @@ public class GUIMonAn extends GUIFormContent {
         ChiTiet.add(txSoLuong);
 
         // event
-        table_MonAn.getTable().addMouseListener(new MouseAdapter() {
+        table_SanPham.getTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent me) {
-                String id = String.valueOf(table_MonAn.tbModel.getValueAt(table_MonAn.tb.getSelectedRow(), 0));
+                String id = String.valueOf(table_SanPham.tbModel.getValueAt(table_SanPham.tb.getSelectedRow(), 0));
                 if (id != null) {
                     //Hàm xử lý khi ấn vào 1 row trong table
                     showInfo(id);
@@ -769,25 +744,25 @@ public class GUIMonAn extends GUIFormContent {
         panel.add(ChiTiet);
         return panel;
     }
-    //Hàm show thông tin của món ăn
+    //Hàm show thông tin của sản phẩm
     private void showInfo(String id) {
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
         if (id != null) {
             // show hình
-            for (SanPhamDTO ds : MonAnBUS.dsMonAn) {
-                if (ds.getIDMonAn().equals(id)) {
+            for (SanPhamDTO ds : SanPhamBUS.dsSanPham) {
+                if (ds.getIDSanPham().equals(id)) {
                     //Lấy chiều dài và chiều cao của nhãn lbImage
                     int w = lbImage.getWidth();
                     int h = lbImage.getHeight();
                     //Hàm xử lý khi đưa ảnh lên
-                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/MonAn/" + ds.getHinhAnh()));
+                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/SanPham/" + ds.getHinhAnh()));
                     Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
                     lbImage.setIcon(new ImageIcon(imgScaled));
 
                     // show info                   
-                    txMaMA.setText(ds.getIDMonAn());
-                    txTenMA.setText(ds.getTenMonAn());
-                    txDonGia.setText(String.valueOf(ds.getDonGia()));
+                    txMaMA.setText(ds.getIDSanPham());
+                    txTenMA.setText(ds.getTenSanPham());
+                    txDonGia.setText(String.valueOf(ds.getGia()));
                     txSoLuong.setText(String.valueOf(ds.getSoLuong()));
                     return;
                 }
@@ -801,11 +776,11 @@ public class GUIMonAn extends GUIFormContent {
         cohieu = 1;
         if (type.equals("Thêm")) {
             //Tạo cửa sổ chọn file
-            FileDialog fd = new FileDialog(Them_MonAn);
+            FileDialog fd = new FileDialog(Them_SanPham);
             fd.setVisible(true);
             String filename = fd.getFile();
             if (filename != null) {
-                txt_MonAn_Them[4].setText(filename);
+                txt_SanPham_Them[8].setText(filename);
 
             }
         }
@@ -815,7 +790,7 @@ public class GUIMonAn extends GUIFormContent {
             fd.setVisible(true);
             String filename = fd.getFile();
             if (filename != null) {
-                txt_MonAn_Sua[4].setText(filename);
+                txt_SanPham_Sua[8].setText(filename);
 
             }
         }
@@ -878,36 +853,35 @@ public class GUIMonAn extends GUIFormContent {
         }
 
         //Đẩy dữ liệu đi và nhận lại danh sách đúng với field tìm kiếm
-        setDataToTable(Tool.searchMA(Ten.getText(), donGia1, donGia2, soLuong1, soLuong2), table_MonAn); //chưa sửa xong hỏi Nguyên cái Textfield
+        setDataToTable(Tool.searchMA(Ten.getText(), donGia1, donGia2, soLuong1, soLuong2), table_SanPham); //chưa sửa xong hỏi Nguyên cái Textfield
     }
 
     //Set dữ liệu lên lại table
     private void setDataToTable(ArrayList<SanPhamDTO> monAnDTO, GUIMyTable myTable) {
         myTable.clear();
         for (SanPhamDTO monAn : monAnDTO) {
-            table_MonAn.addRow(monAn);
+            table_SanPham.addRow(monAn);
         }
     }
 
-    @Override
-    protected void XuatExcel_click(MouseEvent evt) {
-        new XuatExcel().xuatFileExcelMonAn();
-
-    }
-
-    @Override
-    protected void NhapExcel_click(MouseEvent evt) {
-        new DocExcel().docFileExcelMonAn();
-
-    }
+//    @Override
+//    protected void XuatExcel_click(MouseEvent evt) {
+//        new XuatExcel().xuatFileExcelSanPham();
+//
+//    }
+//
+//    @Override
+//    protected void NhapExcel_click(MouseEvent evt) {
+//        new DocExcel().docFileExcelSanPham();
+//
+//    }
 
     //Hàm khi ấn nút làm mới
     private void LamMoi() {
-        table_MonAn.clear();
-        for (SanPhamDTO DTO : MonAnBUS.dsMonAn) {
-            if (DTO.getTrangThai().equals("Hiện")) {
-                table_MonAn.addRow(DTO);
-            }
+        table_SanPham.clear();
+        for (SanPhamDTO DTO : SanPhamBUS.dsSanPham) {
+                table_SanPham.addRow(DTO);
+            
         }
     }
 }

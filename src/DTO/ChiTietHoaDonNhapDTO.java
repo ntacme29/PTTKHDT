@@ -2,16 +2,9 @@
 package DTO;
 public class ChiTietHoaDonNhapDTO {
     private String IDHoaDonNhap,IDSanPham;
-    private int SoLuong,IDChiTietHoaDonNhap;
-
+    private int SoLuong;
+    private float GiaNhap;
     public ChiTietHoaDonNhapDTO() {
-    }
-
-    public ChiTietHoaDonNhapDTO(String IDHoaDonNhap, String IDSanPham, int SoLuong, int IDChiTietHoaDonNhap) {
-        this.IDHoaDonNhap = IDHoaDonNhap;
-        this.IDSanPham = IDSanPham;
-        this.SoLuong = SoLuong;
-        this.IDChiTietHoaDonNhap = IDChiTietHoaDonNhap;
     }
 
     public String getIDHoaDonNhap() {
@@ -38,12 +31,12 @@ public class ChiTietHoaDonNhapDTO {
         this.SoLuong = SoLuong;
     }
 
-    public int getIDChiTietHoaDonNhap() {
-        return IDChiTietHoaDonNhap;
+    public float getGiaNhap() {
+        return GiaNhap;
     }
 
-    public void setIDChiTietHoaDonNhap(int IDChiTietHoaDonNhap) {
-        this.IDChiTietHoaDonNhap = IDChiTietHoaDonNhap;
+    public void setGiaNhap(float GiaNhap) {
+        this.GiaNhap = GiaNhap;
     }
     
 }
