@@ -6,6 +6,15 @@ public class KhachHangDTO {
     public KhachHangDTO() {
     }
 
+    public KhachHangDTO(String IDKhachHang, String HoKhachHang, String TenKhachHang, String DiaChiNhanHang, String SoDienThoai, float TongChiTieu) {
+        this.IDKhachHang = IDKhachHang;
+        this.HoKhachHang = HoKhachHang;
+        this.TenKhachHang = TenKhachHang;
+        this.DiaChiNhanHang = DiaChiNhanHang;
+        this.SoDienThoai = SoDienThoai;
+        this.TongChiTieu = TongChiTieu;
+    }
+    
     public String getIDKhachHang() {
         return IDKhachHang;
     }

@@ -7,6 +7,11 @@ public class LoaiDayDTO {
     public LoaiDayDTO() {
     }
 
+    public LoaiDayDTO(String IDLoaiDay, String TenLoaiDay) {
+        this.IDLoaiDay = IDLoaiDay;
+        this.TenLoaiDay = TenLoaiDay;
+    }
+
     public String getIDLoaiDay() {
         return IDLoaiDay;
     }
