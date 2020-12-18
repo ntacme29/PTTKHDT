@@ -24,7 +24,6 @@ public class ChiTietHoaDonDAO {
             if (result != null) {
                 while (result.next()) {
                     ChiTietHoaDonDTO cthd = new ChiTietHoaDonDTO();
-                    cthd.setIDChiTietHoaDon(result.getInt("IDChiTietHoaDonBan"));
                     cthd.setIDHoaDon(result.getString("IDHoaDonBan"));
                     cthd.setIDSanPham(result.getString("IDSanPham"));
                     cthd.setSoLuong(result.getInt("SoLuong"));
@@ -40,8 +39,7 @@ public class ChiTietHoaDonDAO {
     public void them(ChiTietHoaDonDTO chitiethd) { //cần ghi lại khi qua class khác
         try {
             String qry = "INSERT INTO chitiethoadon values (";
-            qry = qry + "'" + chitiethd.getIDChiTietHoaDon()+ "'";
-            qry = qry + "," + "'" + chitiethd.getIDHoaDon()+ "'";
+            qry = qry + "'" + chitiethd.getIDHoaDon()+ "'";
             qry = qry + "," + "'" + chitiethd.getIDSanPham()+ "'";
             qry = qry + "," + "'" + chitiethd.getSoLuong() + "'";
             qry = qry + ")";

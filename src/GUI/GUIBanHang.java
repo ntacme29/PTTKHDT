@@ -1,19 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//Đã sửa
 package GUI;
 
 import BUS.ChiTietHoaDonBUS;
 import BUS.HoaDonBUS;
-import BUS.KhuyenMaiBUS;
-import BUS.MonAnBUS;
+import BUS.SanPhamBUS;
 import BUS.TaiKhoanBUS;
 import BUS.Tool;
 import DTO.ChiTietHoaDonDTO;
 import DTO.HoaDonDTO;
-import DTO.KhuyenMaiDTO;
 import DTO.SanPhamDTO;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,27 +37,23 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
-/**
- *
- * @author Nguyen
- */
 //Class này được kế thừa từ GUIFormBanNhap , các bố cục đã được sắp xếp sẵn ở bên đó
 public class GUIBanHang extends GUIFormBanNhap{
-    //Tạo mảng tiêu đề của bảng món ăn
-    private static String array_MonAn[]={"Mã món ăn","Tên món","Đơn vị tính","Giá","Hình ảnh","Loại","Số lượng"};   
-    //Tạo bảng món ăn để nhân viên chọn danh sách món và add lên bảng thanh toán
-    private GUIMyTable table_MonAn,ThanhToan;
-    //Tạo Panel để show thông tin món ăn và để chứa thanh tìm kiếm
+    //Tạo mảng tiêu đề của bảng sản phẩm
+    private static String array_SanPham[]={"Mã sản phẩm","Tên món","Đơn vị tính","Giá","Hình ảnh","Loại","Số lượng"};   
+    //Tạo bảng sản phẩm để nhân viên chọn danh sách món và add lên bảng thanh toán
+    private GUIMyTable table_SanPham,ThanhToan;
+    //Tạo Panel để show thông tin sản phẩm và để chứa thanh tìm kiếm
     private JPanel Show,TimKiem;
-    //Tạo nhãn dùng để chứa hình của thông tin món ăn
+    //Tạo nhãn dùng để chứa hình của thông tin sản phẩm
     private JLabel lbImage;
-    //Tạo các field chứa thông tin món ăn khi chọn
+    //Tạo các field chứa thông tin sản phẩm khi chọn
     private JTextField txMaMA,txTenMA,txDonGia,txSoLuong;
     //Tạo các field chứa thông tin hóa đơn khi thanh toán
     private JTextField MaHD,TongTien,KhachHang,NgayLap,NhanVien,KhuyenMai;
     //Tạo các nút để phục vụ cho việc thuận tiện khi chọn mã khách hàng hay khuyến mãi
     private JButton ChonNhanVien,ChonKhachHang,ChonKhuyenMai;
-    //Tạo field tìm kiếm món ăn 
+    //Tạo field tìm kiếm sản phẩm 
     private JTextField search;
     //Tạo ComboBox để chọn tiêu chí tìm kiếm
     private JComboBox cbSearch;
@@ -74,47 +64,46 @@ public class GUIBanHang extends GUIFormBanNhap{
     @Override
     protected JPanel panelDanhSach(){       
         JPanel panel=new JPanel(null);
-        //Thanh tìm kiếm món ăn
+        //Thanh tìm kiếm sản phẩm
         TimKiem=TimKiem();
         TimKiem.setBounds(0,0,GUImenu.width_content*50/100, 80);
         panel.add(TimKiem);
-        //Bảng món ăn
-        JPanel MonAn=Table();
-        MonAn.setBounds(0,85,GUImenu.width_content*50/100, 300);
-        panel.add(MonAn);
-        //Show thông tin món ăn khi click vào
+        //Bảng sản phẩm
+        JPanel SanPham=Table();
+        SanPham.setBounds(0,85,GUImenu.width_content*50/100, 300);
+        panel.add(SanPham);
+        //Show thông tin sản phẩm khi click vào
         Show=Show();
         Show.setBounds(0,390,GUImenu.width_content*50/100, 370);
         panel.add(Show);
         
         return panel;    
     }
-    //Tạo bảng món ăn
+    //Tạo bảng sản phẩm
     private JPanel Table(){        
-        table_MonAn=new GUIMyTable();        
-        table_MonAn.setHeaders(array_MonAn);           
+        table_SanPham=new GUIMyTable();        
+        table_SanPham.setHeaders(array_SanPham);           
         docDB();                  
-        table_MonAn.pane.setPreferredSize(new Dimension(GUImenu.width_content*50/100, 300));
-        return table_MonAn;
+        table_SanPham.pane.setPreferredSize(new Dimension(GUImenu.width_content*50/100, 300));
+        return table_SanPham;
     }
-    //Đọc dữ liệu bảng món ăn
+    //Đọc dữ liệu bảng sản phẩm
     public void docDB() {
-        MonAnBUS monAnBus = new MonAnBUS();
-        if(MonAnBUS.dsMonAn == null) {
+        SanPhamBUS monAnBus = new SanPhamBUS();
+        if(SanPhamBUS.dsSanPham == null) {
             try {
-                monAnBus.docDSMonAn();
+                monAnBus.docDSSanPham();
             } catch (Exception ex) {
-                Logger.getLogger(GUIMonAn.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUISanPham.class.getName()).log(Level.SEVERE, null, ex);
             }
         }       
-        for (SanPhamDTO monAnDTO : MonAnBUS.dsMonAn) {
-            if (monAnDTO.getTrangThai().equals("Hiện")) {
-                table_MonAn.addRow(monAnDTO);
+        for (SanPhamDTO monAnDTO : SanPhamBUS.dsSanPham) {
+                table_SanPham.addRow(monAnDTO);
                     
-            }
+            
         }
     }
-    //Thanh tìm kiếm món ăn
+    //Thanh tìm kiếm sản phẩm
     private JPanel TimKiem(){
         JPanel TimKiem=new JPanel(null);
         
@@ -155,16 +144,15 @@ public class GUIBanHang extends GUIFormBanNhap{
     }
     //xóa ruột của table và đổ lên những kết quả tìm kiếm được
     public void txtSearchOnChange() {
-        table_MonAn.clear();
+        table_SanPham.clear();
         ArrayList<SanPhamDTO> arraylist=Tool.searchBH(search.getText());
         for (SanPhamDTO DTO : arraylist) {
-            if (DTO.getTrangThai().equals("Hiện")) {
-                table_MonAn.addRow(DTO);
+                table_SanPham.addRow(DTO);
                     
-            }
+            
         }
     }
-    //Show thông tin món ăn
+    //Show thông tin sản phẩm
     private JPanel Show(){
         JPanel panel=new JPanel(null);
         JPanel ChiTiet=new JPanel(null);
@@ -181,8 +169,8 @@ public class GUIBanHang extends GUIFormBanNhap{
         txSoLuong=new JTextField();
         
         // border
-        txMaMA.setBorder(BorderFactory.createTitledBorder("Mã món ăn"));       
-        txTenMA.setBorder(BorderFactory.createTitledBorder("Tên món ăn"));
+        txMaMA.setBorder(BorderFactory.createTitledBorder("Mã sản phẩm"));       
+        txTenMA.setBorder(BorderFactory.createTitledBorder("Tên sản phẩm"));
         txDonGia.setBorder(BorderFactory.createTitledBorder("Đơn giá"));
         txSoLuong.setBorder(BorderFactory.createTitledBorder("Số lượng"));
         // disable
@@ -209,10 +197,10 @@ public class GUIBanHang extends GUIFormBanNhap{
         ChiTiet.add(txSoLuong);
 
         // Sự kiện khi click vào các row
-        table_MonAn.getTable().addMouseListener(new MouseAdapter() { 
+        table_SanPham.getTable().addMouseListener(new MouseAdapter() { 
             @Override
             public void mouseReleased(MouseEvent me) {
-                String id = String.valueOf(table_MonAn.tbModel.getValueAt(table_MonAn.tb.getSelectedRow(), 0));
+                String id = String.valueOf(table_SanPham.tbModel.getValueAt(table_SanPham.tb.getSelectedRow(), 0));
                 if (id != null) {
                     showInfo(id);
                 }
@@ -242,18 +230,18 @@ public class GUIBanHang extends GUIFormBanNhap{
         // https://stackoverflow.com/questions/16343098/resize-a-picture-to-fit-a-jlabel
         if (id != null) {
             // show hình
-            for (SanPhamDTO ds : MonAnBUS.dsMonAn) {
-                if (ds.getIDMonAn().equals(id)) {
+            for (SanPhamDTO ds : SanPhamBUS.dsSanPham) {
+                if (ds.getIDSanPham().equals(id)) {
                     int w = lbImage.getWidth();
                     int h = lbImage.getHeight();
-                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/MonAn/" + ds.getHinhAnh()));
+                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/SanPham/" + ds.getHinhAnh()));
                     Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
                     lbImage.setIcon(new ImageIcon(imgScaled));
 
                     // show info                   
-                    txMaMA.setText(ds.getIDMonAn());
-                    txTenMA.setText(ds.getTenMonAn());                
-                    txDonGia.setText(String.valueOf(ds.getDonGia()));
+                    txMaMA.setText(ds.getIDSanPham());
+                    txTenMA.setText(ds.getTenSanPham());                
+                    txDonGia.setText(String.valueOf(ds.getGia()));
                     txSoLuong.setText("1");
                     return;
                 }
@@ -371,7 +359,7 @@ public class GUIBanHang extends GUIFormBanNhap{
         return panel;
     }
     @Override
-    //Hàm này tạo bảng chứa các món ăn order
+    //Hàm này tạo bảng chứa các sản phẩm order
     protected JPanel panelThanhToan(){
         JPanel panel=new JPanel();
         
@@ -385,14 +373,14 @@ public class GUIBanHang extends GUIFormBanNhap{
     }
     //Hàm này xử lý việc ấn thêm món khi khách order
     private void Them_click(MouseEvent e){
-        int i = table_MonAn.tb.getSelectedRow();
+        int i = table_SanPham.tb.getSelectedRow();
         int a=Integer.parseInt(txSoLuong.getText());
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 hàng để thêm");
         } 
         else 
         {
-            int SlTrongTable=Integer.parseInt(String.valueOf(table_MonAn.tbModel.getValueAt(i, 6)));
+            int SlTrongTable=Integer.parseInt(String.valueOf(table_SanPham.tbModel.getValueAt(i, 6)));
             //Rào việc đặt số lượng lớn hơn số hiện có
             if(a>SlTrongTable)
             {
@@ -403,7 +391,7 @@ public class GUIBanHang extends GUIFormBanNhap{
                 
                 for(int j=0;j<ThanhToan.tbModel.getRowCount();j++)
                 {
-                    if(ThanhToan.tbModel.getValueAt(j, 0)==table_MonAn.tbModel.getValueAt(i, 0))
+                    if(ThanhToan.tbModel.getValueAt(j, 0)==table_SanPham.tbModel.getValueAt(i, 0))
                     {
                         int SlTrongThanhToan=a+Integer.valueOf(String.valueOf(ThanhToan.tbModel.getValueAt(j, 4)));
                         if(SlTrongThanhToan<=SlTrongTable)
@@ -420,10 +408,10 @@ public class GUIBanHang extends GUIFormBanNhap{
                     }
                 }
                     ThanhToan.addRow(new String[]{
-                        String.valueOf(table_MonAn.tbModel.getValueAt(i, 0)),
-                        String.valueOf(table_MonAn.tbModel.getValueAt(i, 1)),
-                        String.valueOf(table_MonAn.tbModel.getValueAt(i, 3)),
-                        String.valueOf(table_MonAn.tbModel.getValueAt(i, 5)),
+                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 0)),
+                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 1)),
+                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 3)),
+                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 5)),
                         String.valueOf(a)
                     });
                     TinhTien();
@@ -497,29 +485,26 @@ public class GUIBanHang extends GUIFormBanNhap{
             ChiTietHoaDonBUS cthdbus=new ChiTietHoaDonBUS();
             //Tạo biến và xác định số tiền giảm trong mỗi hóa đơn
             float TienKhuyenMai = 0;
-            for(KhuyenMaiDTO DTO: KhuyenMaiBUS.dskm)
-                if(DTO.getIDKhuyenMai().equals(KhuyenMai.getText())){
-                    TienKhuyenMai=DTO.getTienGiam();
-                }
             //Tạo DTO và truyền dữ liệu trực tiếp thông qua constructor 
-            HoaDonDTO hdDTO=new HoaDonDTO(MaHD.getText(),
-                                            NhanVien.getText(),
-                                            KhachHang.getText(),
-                                            KhuyenMai.getText(),
-                                            LocalDate.parse(NgayLap.getText()),
-                                            TienKhuyenMai,
-                                            Float.parseFloat(TongTien.getText()),
-                                            "Hiện");
+            HoaDonDTO hdDTO=new HoaDonDTO();
+                    hdDTO.setIDHoaDon(MaHD.getText());
+                    hdDTO.setIDNhanVien(NhanVien.getText());
+                    hdDTO.setIDKhachHang(KhachHang.getText());
+                    hdDTO.setNgayBan(LocalDate.parse(NgayLap.getText()));
+                    hdDTO.setThanhTien(Float.parseFloat(TongTien.getText()));
             //Thêm vào hóa đơn
             hdbus.them(hdDTO);
             //Tạo hàm duyệt vì cần thêm nhiều chi tiết hóa đơn
             for(int i=0;i<ThanhToan.tb.getRowCount();i++){
-                String mamonan=String.valueOf(ThanhToan.tbModel.getValueAt(i, 0));
+                String masanpham=String.valueOf(ThanhToan.tbModel.getValueAt(i, 0));
                 int soluong=Integer.parseInt(String.valueOf(ThanhToan.tbModel.getValueAt(i, 4)));
                 float dongia=Float.valueOf(String.valueOf(ThanhToan.tbModel.getValueAt(i, 2)));
                 float thanhtien=dongia*soluong;
                 //Tạo DTO và truyền dữ liệu trực tiếp thông qua constructor 
-                ChiTietHoaDonDTO ctDTO=new ChiTietHoaDonDTO(MaHD.getText(),mamonan,soluong,dongia,thanhtien );
+                ChiTietHoaDonDTO ctDTO=new ChiTietHoaDonDTO();
+                        ctDTO.setIDHoaDon(MaHD.getText());
+                        ctDTO.setIDSanPham(masanpham);
+                        ctDTO.setSoLuong(soluong);
                 //Thêm vào chi tiết hóa đơn 
                 cthdbus.them(ctDTO);
                 //Cập nhật lại số lượng
@@ -537,7 +522,7 @@ public class GUIBanHang extends GUIFormBanNhap{
     }
     //Ràng buộc dữ liệu
     //Thứ tự truyền vào lần lượt trùng với các thứ tự ô text
-    public boolean checkText(String checkMaHD,String checkTien,String checkMaKH,String checkNgay,String checkMaNV,String checkMaKM,int somonan){
+    public boolean checkText(String checkMaHD,String checkTien,String checkMaKH,String checkNgay,String checkMaNV,String checkMaKM,int sosanpham){
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Segoe UI", 0, 20)));
         if (checkMaHD.equals("") 
                 || checkTien.equals("") 
@@ -546,8 +531,8 @@ public class GUIBanHang extends GUIFormBanNhap{
                 || checkMaNV.equals("") 
                 || checkMaKM.equals("")) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        } else if(somonan==0){
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn món ăn");
+        } else if(sosanpham==0){
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn sản phẩm");
         } else {
             return true;
 
@@ -564,11 +549,6 @@ public class GUIBanHang extends GUIFormBanNhap{
                 thanhtien+=dongia*soluong;
                 
             }
-            for(KhuyenMaiDTO DTO:KhuyenMaiBUS.dskm)
-            {
-                if(KhuyenMai.getText().equals(DTO.getIDKhuyenMai()))
-                    thanhtien-=DTO.getTienGiam();
-            }
             //Trường hợp có mã khuyến mãi và mua đồ có giá thấp hơn
             if(thanhtien<0)
                 thanhtien=0;
@@ -581,11 +561,10 @@ public class GUIBanHang extends GUIFormBanNhap{
     }
     //Hàm khi ấn nút làm mới
     private void LamMoi() {
-        table_MonAn.clear();
-        for (SanPhamDTO DTO : MonAnBUS.dsMonAn) {
-            if (DTO.getTrangThai().equals("Hiện")) {
-                table_MonAn.addRow(DTO);
-            }
+        table_SanPham.clear();
+        for (SanPhamDTO DTO : SanPhamBUS.dsSanPham) {
+                table_SanPham.addRow(DTO);
+            
         }
     }
 }

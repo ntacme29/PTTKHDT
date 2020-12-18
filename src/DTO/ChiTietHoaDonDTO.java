@@ -3,16 +3,9 @@ package DTO;
 public class ChiTietHoaDonDTO {
 
     private String IDHoaDon,IDSanPham;
-    private int SoLuong,IDChiTietHoaDon;
-
+    private int SoLuong;
+    private float DonGia,ThanhTien;
     public ChiTietHoaDonDTO() {
-    }
-
-    public ChiTietHoaDonDTO(String IDHoaDon, String IDSanPham, int SoLuong, int IDChiTietHoaDon) {
-        this.IDHoaDon = IDHoaDon;
-        this.IDSanPham = IDSanPham;
-        this.SoLuong = SoLuong;
-        this.IDChiTietHoaDon = IDChiTietHoaDon;
     }
 
     public String getIDHoaDon() {
@@ -39,12 +32,20 @@ public class ChiTietHoaDonDTO {
         this.SoLuong = SoLuong;
     }
 
-    public int getIDChiTietHoaDon() {
-        return IDChiTietHoaDon;
+    public float getDonGia() {
+        return DonGia;
     }
 
-    public void setIDChiTietHoaDon(int IDChiTietHoaDon) {
-        this.IDChiTietHoaDon = IDChiTietHoaDon;
+    public void setDonGia(float DonGia) {
+        this.DonGia = DonGia;
+    }
+
+    public float getThanhTien() {
+        return ThanhTien;
+    }
+
+    public void setThanhTien(float ThanhTien) {
+        this.ThanhTien = ThanhTien;
     }
     
 }

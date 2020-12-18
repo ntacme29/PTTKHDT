@@ -1,9 +1,9 @@
-//Đã sửa
+//Đang sửa, còn phần tool và excel
 package GUI;
 
-import BUS.NhaCungCapBUS;
+import BUS.LoaiDayBUS;
 import BUS.Tool;
-import DTO.NhaCungCapDTO;
+import DTO.LoaiDayDTO;
 import Excel.DocExcel;
 import Excel.XuatExcel;
 import java.awt.Color;
@@ -15,8 +15,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
@@ -28,7 +26,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
@@ -36,30 +33,25 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.plaf.FontUIResource;
 
-/**
- *
- * @author Nguyen
- */
-public class GUINhaCungCap extends GUIFormContent {
-
-    public static String array_NhaCungCap[] = {"Mã nhà cung cấp", "Tên", "SĐT", "Địa chỉ"};
-    public GUIMyTable table_NhaCungCap;
-    private static JDialog Them_NhaCungCap;
+public class GUILoaiDay extends GUIFormContent{
+    public static String array_LoaiDay[] = {"Mã loại dây", "Tên"};
+    public GUIMyTable table_LoaiDay;
+    private static JDialog Them_LoaiDay;
     private static JDialog Sua;
-    private final JLabel label_NhaCungCap[] = new JLabel[array_NhaCungCap.length];
-    private JTextField txt_NhaCungCap_Them[] = new JTextField[array_NhaCungCap.length];
+    private final JLabel label_LoaiDay[] = new JLabel[array_LoaiDay.length];
+    private JTextField txt_LoaiDay_Them[] = new JTextField[array_LoaiDay.length];
     //Phần textfield của sửa
-    private JTextField txt_NhaCungCap_Sua[] = new JTextField[array_NhaCungCap.length];
+    private JTextField txt_LoaiDay_Sua[] = new JTextField[array_LoaiDay.length];
     //Phần textfield để tìm kiếm
     private JTextField search;
     //Combobox để chọn thuộc tính muốn tìm
     private JComboBox cbSearch;
     //Tạo sẵn đối tượng BUS
-    private NhaCungCapBUS BUS = new NhaCungCapBUS();
+    private LoaiDayBUS BUS = new LoaiDayBUS();
     //Tạo cờ hiệu cho việc các Dialog có được tắt đúng cách hay không
     private int cohieu = 0;
 
-    public GUINhaCungCap() {
+    public GUILoaiDay() {
         super();
     }
 
@@ -67,52 +59,52 @@ public class GUINhaCungCap extends GUIFormContent {
     //Tạo Panel chưa Table
     protected JPanel Table() {
         JPanel panel = new JPanel(null);
-        //Tạo đối tượng cho table_NhaCungCap
-        table_NhaCungCap = new GUIMyTable();
+        //Tạo đối tượng cho table_LoaiDay
+        table_LoaiDay = new GUIMyTable();
         //Tạo tiêu đề bảng
-        table_NhaCungCap.setHeaders(array_NhaCungCap);
+        table_LoaiDay.setHeaders(array_LoaiDay);
         //Hàm đọc database
         docDB();
         //Set kích thước và vị trí
-        table_NhaCungCap.pane.setPreferredSize(new Dimension(GUImenu.width_content * 90 / 100, 300));
-        table_NhaCungCap.setBounds(0, 0, GUImenu.width_content, 600);
-        panel.add(table_NhaCungCap);
+        table_LoaiDay.pane.setPreferredSize(new Dimension(GUImenu.width_content * 90 / 100, 300));
+        table_LoaiDay.setBounds(0, 0, GUImenu.width_content, 600);
+        panel.add(table_LoaiDay);
 
         return panel;
     }
 
-    //Hàm tạo Dialog thêm nhà cung cấp
+    //Hàm tạo Dialog thêm loại dây
     private void Them_Frame() {
         JFrame f = new JFrame();
         //Để cờ hiệu với giá trị 0 với ý nghĩa không được bấm ra khỏi Dialog trừ nút Thoát
         cohieu = 0;
-        Them_NhaCungCap = new JDialog(f);
-        Them_NhaCungCap.setLayout(null);
-        Them_NhaCungCap.setSize(500, 500);
+        Them_LoaiDay = new JDialog(f);
+        Them_LoaiDay.setLayout(null);
+        Them_LoaiDay.setSize(500, 500);
         //Set vị trí của Dialog
         //https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
-        Them_NhaCungCap.setLocationRelativeTo(null);
+        Them_LoaiDay.setLocationRelativeTo(null);
         //Tắt thanh công cụ mặc định
-        Them_NhaCungCap.setUndecorated(true);
+        Them_LoaiDay.setUndecorated(true);
         //Tạo tiêu đề và set hình thức
-        JLabel Title = new JLabel("Thêm nhà cung cấp");
+        JLabel Title = new JLabel("Thêm loại dây");
         Title.setFont(new Font("Time New Roman", Font.BOLD, 21));
         Title.setForeground(Color.decode("#FF4081"));
         Title.setBounds(150, 0, 200, 40);
-        Them_NhaCungCap.add(Title);
+        Them_LoaiDay.add(Title);
         int y = 50;
         //Tạo tự động các label và textfield
-        for (int i = 0; i < array_NhaCungCap.length; i++) {
-            label_NhaCungCap[i] = new JLabel(array_NhaCungCap[i]);
-            label_NhaCungCap[i].setBounds(100, y, 100, 30);
-            Them_NhaCungCap.add(label_NhaCungCap[i]);
+        for (int i = 0; i < array_LoaiDay.length; i++) {
+            label_LoaiDay[i] = new JLabel(array_LoaiDay[i]);
+            label_LoaiDay[i].setBounds(100, y, 100, 30);
+            Them_LoaiDay.add(label_LoaiDay[i]);
 
-            txt_NhaCungCap_Them[i] = new JTextField();
-            txt_NhaCungCap_Them[i].setBounds(200, y, 150, 30);
+            txt_LoaiDay_Them[i] = new JTextField();
+            txt_LoaiDay_Them[i].setBounds(200, y, 150, 30);
             //Tạo nút để lấy tên ảnh 
 
             y += 40;
-            Them_NhaCungCap.add(txt_NhaCungCap_Them[i]);
+            Them_LoaiDay.add(txt_LoaiDay_Them[i]);
         }
         //Tạo nút lưu
         JButton Luu = new JButton("Lưu");
@@ -123,25 +115,23 @@ public class GUINhaCungCap extends GUIFormContent {
             @Override
             public void mousePressed(MouseEvent evt) {
                 cohieu = 1;
-                int a = JOptionPane.showConfirmDialog(Them_NhaCungCap, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
+                int a = JOptionPane.showConfirmDialog(Them_LoaiDay, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
-                    NhaCungCapDTO DTO = new NhaCungCapDTO();
-                            DTO.setIDNhaCungCap(txt_NhaCungCap_Them[0].getText());
-                            DTO.setTenNhaCungCap(txt_NhaCungCap_Them[1].getText());
-                            DTO.setSoDienThoai(txt_NhaCungCap_Them[2].getText());
-                            DTO.setDiaChi(txt_NhaCungCap_Them[3].getText());
+                    LoaiDayDTO DTO = new LoaiDayDTO();
+                            DTO.setIDLoaiDay(txt_LoaiDay_Them[0].getText());
+                            DTO.setTenLoaiDay(txt_LoaiDay_Them[1].getText());
                     if(checkTextThem(DTO))
                     {
                         
 
-                    BUS.them(DTO); //thêm nhà cung cấp bên BUS đã có thêm vào database
-                    table_NhaCungCap.addRow(DTO);
+                    BUS.them(DTO); //thêm loại dây bên BUS đã có thêm vào database
+                    table_LoaiDay.addRow(DTO);
                     //clear textfield trong Them
-                    for (int i = 0; i < array_NhaCungCap.length; i++) {
-                        txt_NhaCungCap_Them[i].setText("");
+                    for (int i = 0; i < array_LoaiDay.length; i++) {
+                        txt_LoaiDay_Them[i].setText("");
                     }
                     
-                    Them_NhaCungCap.dispose();
+                    Them_LoaiDay.dispose();
                     }
                     
 
@@ -149,7 +139,7 @@ public class GUINhaCungCap extends GUIFormContent {
                     cohieu = 0;
             }
         });
-        Them_NhaCungCap.add(Luu);
+        Them_LoaiDay.add(Luu);
         //Tạo nút thoát
         JButton Thoat = new JButton("Thoát");
         Thoat.setBackground(Color.decode("#90CAF9"));
@@ -159,19 +149,19 @@ public class GUINhaCungCap extends GUIFormContent {
             @Override
             public void mousePressed(MouseEvent evt) {
                 //clear textfield trong Them
-                for (int i = 0; i < array_NhaCungCap.length; i++) {
-                    txt_NhaCungCap_Them[i].setText("");
+                for (int i = 0; i < array_LoaiDay.length; i++) {
+                    txt_LoaiDay_Them[i].setText("");
                 }
                 //Tắt cờ hiệu đi 
                 cohieu = 1;
                 //Lệnh này để đóng dialog
-                Them_NhaCungCap.dispose();
+                Them_LoaiDay.dispose();
             }
         });
 
-        Them_NhaCungCap.add(Thoat);
+        Them_LoaiDay.add(Thoat);
         //Chặn việc thao tác ngoài khi chưa tắt dialog gây lỗi phát sinh
-        Them_NhaCungCap.addWindowListener(new WindowAdapter() {
+        Them_LoaiDay.addWindowListener(new WindowAdapter() {
             @Override
             public void windowDeactivated(WindowEvent e) {
                 if (cohieu == 0) {
@@ -181,10 +171,10 @@ public class GUINhaCungCap extends GUIFormContent {
 
         });
 
-        String ma = Tool.tangMa3(NhaCungCapBUS.getMaNhaCungCapCuoi()); //tăng mã
-        txt_NhaCungCap_Them[0].setText(ma); //set mã
-        txt_NhaCungCap_Them[0].setEditable(false);
-        Them_NhaCungCap.setVisible(true);
+        String ma = Tool.tangMa3(LoaiDayBUS.getMaLoaiDayCuoi()); //tăng mã
+        txt_LoaiDay_Them[0].setText(ma); //set mã
+        txt_LoaiDay_Them[0].setEditable(false);
+        Them_LoaiDay.setVisible(true);
 
     }
 
@@ -201,22 +191,22 @@ public class GUINhaCungCap extends GUIFormContent {
         Sua.setLocationRelativeTo(null);
         Sua.setUndecorated(true);
         //Tạo tiêu đề
-        JLabel Title = new JLabel("Sửa nhà cung cấp");
+        JLabel Title = new JLabel("Sửa loại dây");
         Title.setFont(new Font("Time New Roman", Font.BOLD, 21));
         Title.setForeground(Color.decode("#FF4081"));
         Title.setBounds(150, 0, 200, 40);
         Sua.add(Title);
         int y = 50;
         //Tạo tự động các lable và textfield
-        for (int i = 0; i < array_NhaCungCap.length; i++) {
-            label_NhaCungCap[i] = new JLabel(array_NhaCungCap[i]);
-            label_NhaCungCap[i].setBounds(100, y, 100, 30);
-            Sua.add(label_NhaCungCap[i]);
-            txt_NhaCungCap_Sua[i] = new JTextField();
-            txt_NhaCungCap_Sua[i].setBounds(200, y, 150, 30);
+        for (int i = 0; i < array_LoaiDay.length; i++) {
+            label_LoaiDay[i] = new JLabel(array_LoaiDay[i]);
+            label_LoaiDay[i].setBounds(100, y, 100, 30);
+            Sua.add(label_LoaiDay[i]);
+            txt_LoaiDay_Sua[i] = new JTextField();
+            txt_LoaiDay_Sua[i].setBounds(200, y, 150, 30);
 
             y += 40;
-            Sua.add(txt_NhaCungCap_Sua[i]);
+            Sua.add(txt_LoaiDay_Sua[i]);
         }
         //Lưu tất cả dữ liệu trên textfield lên database
         JButton Luu = new JButton("Lưu");
@@ -228,11 +218,9 @@ public class GUINhaCungCap extends GUIFormContent {
                 cohieu = 1;
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
-                    NhaCungCapDTO DTO = new NhaCungCapDTO();
-                            DTO.setIDNhaCungCap(txt_NhaCungCap_Them[0].getText());
-                            DTO.setTenNhaCungCap(txt_NhaCungCap_Them[1].getText());
-                            DTO.setSoDienThoai(txt_NhaCungCap_Them[2].getText());
-                            DTO.setDiaChi(txt_NhaCungCap_Them[3].getText());
+                    LoaiDayDTO DTO = new LoaiDayDTO();
+                            DTO.setIDLoaiDay(txt_LoaiDay_Them[0].getText());
+                            DTO.setTenLoaiDay(txt_LoaiDay_Them[1].getText());
                     if(checkTextSua(DTO))
                     {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    
@@ -275,26 +263,26 @@ public class GUINhaCungCap extends GUIFormContent {
     }
 
     //Hàm lưu dữ liệu khi sửa
-    public void buttonLuu_Sua(NhaCungCapDTO DTO) {
-        int row = table_NhaCungCap.tb.getSelectedRow();
-        int colum = table_NhaCungCap.tb.getSelectedColumn();
-        String maNhaCungCap = table_NhaCungCap.tbModel.getValueAt(row, colum).toString();
+    public void buttonLuu_Sua(LoaiDayDTO DTO) {
+        int row = table_LoaiDay.tb.getSelectedRow();
+        int colum = table_LoaiDay.tb.getSelectedColumn();
+        String maLoaiDay = table_LoaiDay.tbModel.getValueAt(row, colum).toString();
         //Hỏi để xác nhận việc lưu dữ liệu đã sửa chữa
 //        int option = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chắn sửa?", "", JOptionPane.YES_NO_OPTION);
 //        if (option == JOptionPane.YES_OPTION) {
             //Sửa dữ liệu trên bảng
             //model là ruột JTable   
             //set tự động giá trị cho model
-            for (int j = 0; j < array_NhaCungCap.length; j++) {
-                table_NhaCungCap.tbModel.setValueAt(txt_NhaCungCap_Sua[j].getText(), row, j);
+            for (int j = 0; j < array_LoaiDay.length; j++) {
+                table_LoaiDay.tbModel.setValueAt(txt_LoaiDay_Sua[j].getText(), row, j);
             }
 
-            table_NhaCungCap.tb.setModel(table_NhaCungCap.tbModel);
+            table_LoaiDay.tb.setModel(table_LoaiDay.tbModel);
 
             //Sửa dữ liệu trong database và arraylist trên bus
             
             //Tìm vị trí của row cần sửa
-            int index = NhaCungCapBUS.timViTri(maNhaCungCap);
+            int index = LoaiDayBUS.timViTri(maLoaiDay);
             //Truyền dữ liệu và vị trí vào bus
             BUS.sua(DTO, index);
 //        }
@@ -310,16 +298,16 @@ public class GUINhaCungCap extends GUIFormContent {
     @Override
     protected void Sua_click(MouseEvent evt) {
 
-        int i = table_NhaCungCap.tb.getSelectedRow();
+        int i = table_LoaiDay.tb.getSelectedRow();
         if (i == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn 1 hàng để sửa");
         } else {
             //Hiện Dialog lên và set dữ liệu vào các field
             Sua_Frame();
-            txt_NhaCungCap_Sua[0].setEnabled(false);
+            txt_LoaiDay_Sua[0].setEnabled(false);
             //Set tự động giá trị các field
-            for (int j = 0; j < array_NhaCungCap.length; j++) {
-                txt_NhaCungCap_Sua[j].setText(table_NhaCungCap.tb.getValueAt(i, j).toString());
+            for (int j = 0; j < array_LoaiDay.length; j++) {
+                txt_LoaiDay_Sua[j].setText(table_LoaiDay.tb.getValueAt(i, j).toString());
             }
 
         }
@@ -328,19 +316,19 @@ public class GUINhaCungCap extends GUIFormContent {
     //Hàm sự kiện khi click vào nút xóa
     @Override
     protected void Xoa_click(MouseEvent evt) {
-        int row = table_NhaCungCap.tb.getSelectedRow();
+        int row = table_LoaiDay.tb.getSelectedRow();
         if (row == -1) {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn hàng muốn xóa");
         } else {
             int option = JOptionPane.showConfirmDialog(null, "Bạn chắc chắn xóa?", "", JOptionPane.YES_NO_OPTION);
             if (option == JOptionPane.YES_OPTION) {
-                String maNhaCungCap = table_NhaCungCap.tbModel.getValueAt(row, 0).toString();
-                //truyền mã nhà cung cấp vào hàm timViTri ở NhaCungCapBUS 
-                int index = NhaCungCapBUS.timViTri(maNhaCungCap);
+                String maLoaiDay = table_LoaiDay.tbModel.getValueAt(row, 0).toString();
+                //truyền mã loại dây vào hàm timViTri ở LoaiDayBUS 
+                int index = LoaiDayBUS.timViTri(maLoaiDay);
                 //Xóa hàng ở table
-                table_NhaCungCap.tbModel.removeRow(row);
+                table_LoaiDay.tbModel.removeRow(row);
                 //Xóa ở arraylist và đổi chế độ ẩn ở database
-                BUS.xoa(maNhaCungCap, index);
+                BUS.xoa(maLoaiDay, index);
             }
         }
 
@@ -348,25 +336,25 @@ public class GUINhaCungCap extends GUIFormContent {
 
     //Hàm khi ấn nút làm mới
     private void LamMoi() {
-        table_NhaCungCap.clear();
-        for (NhaCungCapDTO DTO : NhaCungCapBUS.dsncc) {
-                table_NhaCungCap.addRow(DTO);
+        table_LoaiDay.clear();
+        for (LoaiDayDTO DTO : LoaiDayBUS.dsld) {
+                table_LoaiDay.addRow(DTO);
             
         }
     }
 
     public void docDB() {
-        NhaCungCapBUS Bus = new NhaCungCapBUS();
-        if (NhaCungCapBUS.dsncc == null) {
+        LoaiDayBUS Bus = new LoaiDayBUS();
+        if (LoaiDayBUS.dsld == null) {
             try {
-                Bus.docDSNCC();
+                Bus.docTH();
             } catch (Exception ex) {
-                Logger.getLogger(GUINhaCungCap.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(GUILoaiDay.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
-        for (NhaCungCapDTO monAnDTO : NhaCungCapBUS.dsncc) {
-                table_NhaCungCap.addRow(monAnDTO);
+        for (LoaiDayDTO monAnDTO : LoaiDayBUS.dsld) {
+                table_LoaiDay.addRow(monAnDTO);
 
             
         }
@@ -379,12 +367,12 @@ public class GUINhaCungCap extends GUIFormContent {
         JLabel lbsearch = new JLabel("");
         lbsearch.setBorder(new TitledBorder("Tìm kiếm"));
         int x = 400;
-        cbSearch = new JComboBox<>(array_NhaCungCap);
+        cbSearch = new JComboBox<>(array_LoaiDay);
         cbSearch.setBounds(5, 20, 150, 40);
         lbsearch.add(cbSearch);
 
         search = new JTextField();
-        search.setBorder(new TitledBorder(array_NhaCungCap[0]));
+        search.setBorder(new TitledBorder(array_LoaiDay[0]));
         search.setBounds(155, 20, 150, 40);
         lbsearch.add(search);
         addDocumentListener(search);
@@ -415,45 +403,18 @@ public class GUINhaCungCap extends GUIFormContent {
         return TimKiem;
     }
 
-    @Override
-    protected void XuatExcel_click(MouseEvent evt) {
-        new XuatExcel().xuatFileExcelNhaCungCap();
+    
 
-    }
-
-    @Override
-    protected void NhapExcel_click(MouseEvent evt) {
-        new DocExcel().docFileExcelNhaCungCap();
-
-    }
-
-    public boolean checkTextThem(NhaCungCapDTO DTO) {
+    public boolean checkTextThem(LoaiDayDTO DTO) {
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Segoe UI", 0, 20)));
-        if (DTO.getTenNhaCungCap().equals("")
-                || DTO.getSoDienThoai().equals("")
-                || DTO.getDiaChi().equals("")) {
+        if (DTO.getTenLoaiDay().equals("")) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenNhaCungCap()))) {
-            JOptionPane.showMessageDialog(null, "Tên nhà cung cấp không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Them[1].requestFocus();
-        } else if (!Tool.isLength50(DTO.getTenNhaCungCap())) {
-            JOptionPane.showMessageDialog(null, "Tên nhà cung cấp không được quá 50 ký tự");
-            txt_NhaCungCap_Them[1].requestFocus();
-        } else if (!Tool.isName(Tool.removeAccent(DTO.getSoDienThoai()))) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Them[2].requestFocus();
-        } else if (!Tool.isLength50(DTO.getSoDienThoai())) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được quá 50 ký tự");
-            txt_NhaCungCap_Them[2].requestFocus();
-        } else if (!Tool.isPhoneNumber(DTO.getSoDienThoai())) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không chính xác");
-            txt_NhaCungCap_Them[2].requestFocus();
-        } else if (!Tool.isName(Tool.removeAccent( DTO.getDiaChi()))) {
-            JOptionPane.showMessageDialog(null, "Địa chỉ không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Them[3].requestFocus();
-        } else if (!Tool.isLength50( DTO.getDiaChi())) {
-            JOptionPane.showMessageDialog(null, "Địa chỉ không được quá 50 ký tự");
-            txt_NhaCungCap_Them[3].requestFocus();
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenLoaiDay()))) {
+            JOptionPane.showMessageDialog(null, "Tên loại dây không được chứa ký tự đặc biệt");
+            txt_LoaiDay_Them[1].requestFocus();
+        } else if (!Tool.isLength50(DTO.getTenLoaiDay())) {
+            JOptionPane.showMessageDialog(null, "Tên loại dây không được quá 50 ký tự");
+            txt_LoaiDay_Them[1].requestFocus();
         } else {
             return true;
 
@@ -461,33 +422,16 @@ public class GUINhaCungCap extends GUIFormContent {
         return false;
     }
 
-    public boolean checkTextSua(NhaCungCapDTO DTO) {
+    public boolean checkTextSua(LoaiDayDTO DTO) {
         UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Segoe UI", 0, 20)));
-        if (DTO.getTenNhaCungCap().equals("")
-                || DTO.getSoDienThoai().equals("")
-                ||  DTO.getDiaChi().equals("")) {
+        if (DTO.getTenLoaiDay().equals("")) {
             JOptionPane.showMessageDialog(null, "Vui lòng điền đầy đủ thông tin");
-        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenNhaCungCap()))) {
-            JOptionPane.showMessageDialog(null, "Tên nhà cung cấp không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Sua[1].requestFocus();
-        } else if (!Tool.isLength50(DTO.getTenNhaCungCap())) {
-            JOptionPane.showMessageDialog(null, "Tên nhà cung cấp không được quá 50 ký tự");
-            txt_NhaCungCap_Sua[1].requestFocus();
-        } else if (!Tool.isName(Tool.removeAccent(DTO.getSoDienThoai()))) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Sua[2].requestFocus();
-        } else if (!Tool.isLength50(DTO.getSoDienThoai())) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không được quá 50 ký tự");
-            txt_NhaCungCap_Sua[2].requestFocus();
-        } else if (!Tool.isPhoneNumber(DTO.getSoDienThoai())) {
-            JOptionPane.showMessageDialog(null, "Số điện thoại không chính xác");
-            txt_NhaCungCap_Sua[2].requestFocus();
-        } else if (!Tool.isName(Tool.removeAccent( DTO.getDiaChi()))) {
-            JOptionPane.showMessageDialog(null, "Địa chỉ không được chứa ký tự đặc biệt");
-            txt_NhaCungCap_Sua[3].requestFocus();
-        } else if (!Tool.isLength50( DTO.getDiaChi())) {
-            JOptionPane.showMessageDialog(null, "Địa chỉ không được quá 50 ký tự");
-            txt_NhaCungCap_Sua[3].requestFocus();
+        } else if (!Tool.isName(Tool.removeAccent(DTO.getTenLoaiDay()))) {
+            JOptionPane.showMessageDialog(null, "Tên loại dây không được chứa ký tự đặc biệt");
+            txt_LoaiDay_Sua[1].requestFocus();
+        } else if (!Tool.isLength50(DTO.getTenLoaiDay())) {
+            JOptionPane.showMessageDialog(null, "Tên loại dây không được quá 50 ký tự");
+            txt_LoaiDay_Sua[1].requestFocus();
         } else {
             return true;
 
@@ -517,13 +461,13 @@ public class GUINhaCungCap extends GUIFormContent {
     
     public void txtSearchOnChange() {
         //Đẩy dữ liệu đi và nhận lại danh sách đúng với field tìm kiếm
-        setDataToTable(Tool.searchNCC(search.getText(),cbSearch.getSelectedItem().toString()), table_NhaCungCap); //chưa sửa xong hỏi Nguyên cái Textfield
+        setDataToTable(Tool.searchLD(search.getText(),cbSearch.getSelectedItem().toString()), table_LoaiDay); //chưa sửa xong hỏi Nguyên cái Textfield
     }
 
-    private void setDataToTable(ArrayList<NhaCungCapDTO> nhaCungCapDTO, GUIMyTable myTable) {
+    private void setDataToTable(ArrayList<LoaiDayDTO> nhaCungCapDTO, GUIMyTable myTable) {
         myTable.clear();
-        for (NhaCungCapDTO nhaCungCap : nhaCungCapDTO) {
-            table_NhaCungCap.addRow(nhaCungCap);
+        for (LoaiDayDTO nhaCungCap : nhaCungCapDTO) {
+            table_LoaiDay.addRow(nhaCungCap);
         }
     }
 }

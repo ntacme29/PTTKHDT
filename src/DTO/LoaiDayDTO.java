@@ -2,22 +2,17 @@
 package DTO;
 
 public class LoaiDayDTO {
-    private String IDDay,TenLoaiDay;
+    private String IDLoaiDay,TenLoaiDay;
 
     public LoaiDayDTO() {
     }
 
-    public LoaiDayDTO(String IDDay, String TenLoaiDay) {
-        this.IDDay = IDDay;
-        this.TenLoaiDay = TenLoaiDay;
+    public String getIDLoaiDay() {
+        return IDLoaiDay;
     }
 
-    public String getIDDay() {
-        return IDDay;
-    }
-
-    public void setIDDay(String IDDay) {
-        this.IDDay = IDDay;
+    public void setIDLoaiDay(String IDLoaiDay) {
+        this.IDLoaiDay = IDLoaiDay;
     }
 
     public String getTenLoaiDay() {
