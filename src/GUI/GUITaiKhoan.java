@@ -40,7 +40,7 @@ import javax.swing.plaf.FontUIResource;
 
 public class GUITaiKhoan extends GUIFormContent {
 
-    public static String array_TaiKhoan[] = {"Tài khoản", "Mã nhân viên", "Mã quyền", "Mật khẩu"};
+    public static String array_TaiKhoan[] = {"Tài khoản", "Mật khẩu", "Mã nhân viên", "Mã quyền"};
     public GUIMyTable table_TaiKhoan;
     private static JDialog Them_TaiKhoan;
     private static JDialog Sua;
@@ -134,7 +134,7 @@ public class GUITaiKhoan extends GUIFormContent {
             Them_TaiKhoan.add(txt_TaiKhoan_Them[i]);
         }
         txt_TaiKhoan_Them[2].setEditable(false);
-        txt_TaiKhoan_Them[1].setEditable(false);
+        txt_TaiKhoan_Them[3].setEditable(false);
         //Tạo nút lưu
         JButton Luu = new JButton("Lưu");
         Luu.setBackground(Color.decode("#90CAF9"));
@@ -257,9 +257,9 @@ public class GUITaiKhoan extends GUIFormContent {
                 if (a == JOptionPane.YES_OPTION) {
                     TaiKhoanDTO DTO = new TaiKhoanDTO();
                             DTO.setTaiKhoan(txt_TaiKhoan_Sua[0].getText());
-                            DTO.setIDNhanVien(txt_TaiKhoan_Sua[1].getText());
-                            DTO.setIDPhanQuyen(txt_TaiKhoan_Sua[2].getText());
-                            DTO.setMatKhau(txt_TaiKhoan_Sua[3].getText());
+                            DTO.setIDNhanVien(txt_TaiKhoan_Sua[2].getText());
+                            DTO.setIDPhanQuyen(txt_TaiKhoan_Sua[3].getText());
+                            DTO.setMatKhau(txt_TaiKhoan_Sua[1].getText());
                     if(checkTextSua(DTO))
                     {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    
@@ -275,7 +275,7 @@ public class GUITaiKhoan extends GUIFormContent {
         });
         Sua.add(Luu);
         txt_TaiKhoan_Sua[2].setEditable(false);
-        txt_TaiKhoan_Sua[1].setEditable(false);
+        txt_TaiKhoan_Sua[3].setEditable(false);
         JButton Thoat = new JButton("Thoát");
         Thoat.setBackground(Color.decode("#90CAF9"));
         Thoat.setBounds(250, y, 100, 50);

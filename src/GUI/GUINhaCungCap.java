@@ -229,10 +229,10 @@ public class GUINhaCungCap extends GUIFormContent {
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
                     NhaCungCapDTO DTO = new NhaCungCapDTO();
-                            DTO.setIDNhaCungCap(txt_NhaCungCap_Them[0].getText());
-                            DTO.setTenNhaCungCap(txt_NhaCungCap_Them[1].getText());
-                            DTO.setSoDienThoai(txt_NhaCungCap_Them[2].getText());
-                            DTO.setDiaChi(txt_NhaCungCap_Them[3].getText());
+                            DTO.setIDNhaCungCap(txt_NhaCungCap_Sua[0].getText());
+                            DTO.setTenNhaCungCap(txt_NhaCungCap_Sua[1].getText());
+                            DTO.setSoDienThoai(txt_NhaCungCap_Sua[2].getText());
+                            DTO.setDiaChi(txt_NhaCungCap_Sua[3].getText());
                     if(checkTextSua(DTO))
                     {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    

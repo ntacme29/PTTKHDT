@@ -3,22 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/HoaDonDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/TaiKhoanDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/SanPhamDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/GUI/GUITaiKhoan.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/ThuongHieuDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/HoaDonNhapDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/PhanQuyenDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DAO/TaiKhoanDAO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/Report/PDF.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/BUS/KhachHangBUS.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/Excel/XuatExcel.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/GUI/GUImenu.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/NhaCungCapDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/DTO/ChiTietHoaDonNhapDTO.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/GUI/LoginGUI.java</file>
-            <file>file:/C:/Users/matn2/Documents/GitHub/PTTKHDT/src/GUI/GUIThuongHieu.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/GUI/mainGUI.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/DTO/SanPhamDTO.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/GUI/GUImenu.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/BUS/LoaiDayBUS.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/DAO/SanPhamDAO.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/BUS/Tool.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/BUS/ChiTietHoaDonBUS.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/DAO/ChiTietHoaDonDAO.java</file>
+            <file>file:/E:/Data/PTTKHDT/PTTKHDT/src/BUS/SanPhamBUS.java</file>
         </group>
     </open-files>
 </project-private>

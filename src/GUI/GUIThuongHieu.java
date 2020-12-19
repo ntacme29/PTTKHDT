@@ -219,8 +219,8 @@ public class GUIThuongHieu extends GUIFormContent {
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
                     ThuongHieuDTO DTO = new ThuongHieuDTO();
-                            DTO.setIDThuongHieu(txt_ThuongHieu_Them[0].getText());
-                            DTO.setTenThuongHieu(txt_ThuongHieu_Them[1].getText());
+                            DTO.setIDThuongHieu(txt_ThuongHieu_Sua[0].getText());
+                            DTO.setTenThuongHieu(txt_ThuongHieu_Sua[1].getText());
                     if(checkTextSua(DTO))
                     {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    

@@ -1,4 +1,4 @@
-//Đang sửa , còn phần tổng tiền khi hiện chi tiết hóa đơn
+//Đã sửa
 package GUI;
 
 
@@ -268,36 +268,42 @@ public class GUIFormChon extends JDialog{
     }
     //Load dữ liệu chi tiết hóa đơn lên table
     public void docDBChiTietHoaDon(String i) throws Exception {
-        Table.setHeaders(new String[]{"Mã món ăn","Số lượng","Đơn giá","Thành tiền"});
+        Table.setHeaders(new String[]{"Mã sản phẩm","Số lượng","Đơn giá","Thành tiền"});
         ChiTietHoaDonBUS Bus = new ChiTietHoaDonBUS();
         if(ChiTietHoaDonBUS.cthd == null) {            
                 Bus.docCTHD();            
         }
         float Tong=0;
-//        for (ChiTietHoaDonDTO DTO : ChiTietHoaDonBUS.cthd) {
-//            if (DTO.getIDHoaDon().equals(i)) {
-//                Tong+=DTO.getThanhTien();
-//                Table.addRow(DTO);                    
-//            }
-//        }
+        for (ChiTietHoaDonDTO DTO : ChiTietHoaDonBUS.cthd) {
+            if (DTO.getIDHoaDon().equals(i)) {
+                Tong+=DTO.getThanhTien();
+                Table.addRow(new String[]{DTO.getIDSanPham(),
+                                            String.valueOf(DTO.getSoLuong()),
+                                            String.valueOf(DTO.getDonGia()),
+                                            String.valueOf(DTO.getThanhTien())});                    
+            }
+        }
         Table.addRow(new String[]{"","","",""});       
         Table.addRow(new String[]{"","","Tổng",String.valueOf(Tong)});
         Table.pane.setPreferredSize(new Dimension(GUImenu.width_content*90/100, 300));
     }
     //Load dữ liệu chi tiết hóa đơn nhập lên table
     public void docDBChiTietHoaDonNhap(String i) throws Exception {
-        Table.setHeaders(new String[]{"Mã nguyên liệu","Số lượng","Giá nhập","Thành tiền"});
+        Table.setHeaders(new String[]{"Mã sản phẩm","Số lượng","Giá nhập","Thành tiền"});
         ChiTietHoaDonNhapBUS Bus = new ChiTietHoaDonNhapBUS();
         if(ChiTietHoaDonNhapBUS.dscthdn == null) {            
                 Bus.docCTHDN();
         }
         float Tong=0;
-//        for (ChiTietHoaDonNhapDTO DTO : ChiTietHoaDonNhapBUS.dscthdn) {
-//            if (DTO.getIDHoaDonNhap().equals(i)) {
-//                Tong+=DTO.getThanhTien();
-//                Table.addRow(DTO);                    
-//            }
-//        }
+        for (ChiTietHoaDonNhapDTO DTO : ChiTietHoaDonNhapBUS.dscthdn) {
+            if (DTO.getIDHoaDonNhap().equals(i)) {
+                Tong+=DTO.getThanhTien();
+                Table.addRow(new String[]{DTO.getIDSanPham(),
+                                            String.valueOf(DTO.getSoLuong()),
+                                            String.valueOf(DTO.getGiaNhap()),
+                                            String.valueOf(DTO.getThanhTien())});                        
+            }
+        }
         Table.addRow(new String[]{"","","",""});       
         Table.addRow(new String[]{"","","Tổng",String.valueOf(Tong)});
         Table.pane.setPreferredSize(new Dimension(GUImenu.width_content*90/100, 300));

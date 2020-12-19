@@ -148,7 +148,6 @@ public class GUIKhachHang extends GUIFormContent {
                     cohieu=0;
             }
         });
-        txt_KhachHang_Them[6].setEditable(false);
         Them_KhachHang.add(Luu);
         //Tạo nút thoát
         JButton Thoat = new JButton("Thoát");
@@ -247,7 +246,6 @@ public class GUIKhachHang extends GUIFormContent {
 
             }
         });
-        txt_KhachHang_Sua[6].setEditable(false);
         Sua.add(Luu);
 
         JButton Thoat = new JButton("Thoát");

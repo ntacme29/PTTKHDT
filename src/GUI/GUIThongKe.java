@@ -235,7 +235,7 @@ class ThongKe_Hoang extends JPanel {
 
         // panel thong ke hoa don (ban duoc)
         plThongKeHoaDon.setLayout(new BorderLayout());
-        tbThongKeHoaDon.setHeaders(new String[]{"Hóa đơn", "Tên nhân viên", "Tên khách hàng", "Tên món ăn", "Số lượng", "Đơn giá", "Thành tiền"});
+        tbThongKeHoaDon.setHeaders(new String[]{"Hóa đơn", "Tên nhân viên", "Tên khách hàng", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
         //sắp xếp vị trí từ trong cột
         tbThongKeHoaDon.setAlignment(0, JLabel.CENTER);
         tbThongKeHoaDon.setAlignment(4, JLabel.CENTER);
@@ -253,7 +253,7 @@ class ThongKe_Hoang extends JPanel {
 
         // panal thong ke nhap (nhap kho)
         plThongKePhieuNhap.setLayout(new BorderLayout());
-        tbThongKePhieuNhap.setHeaders(new String[]{"Hóa đơn nhập", "Tên nhân viên", "Tên nhà cung cấp", "Tên nguyên liệu", "Số lượng", "Đơn giá", "Thành tiền"});
+        tbThongKePhieuNhap.setHeaders(new String[]{"Hóa đơn nhập", "Tên nhân viên", "Tên nhà cung cấp", "Tên sản phẩm", "Số lượng", "Đơn giá", "Thành tiền"});
         tbThongKePhieuNhap.setAlignment(0, JLabel.CENTER);
         tbThongKePhieuNhap.setAlignment(4, JLabel.CENTER);
         tbThongKePhieuNhap.setAlignment(5, JLabel.RIGHT);
@@ -493,8 +493,8 @@ class ThongKe_Hoang extends JPanel {
             tongSLHoaDon + " hóa đơn",
             dsnv.size() + " nhân viên", 
             dskh.size() + " khách hàng",
-            dsma.size() + " món ăn",
-            tongSLSanPham + " phần ",
+            dsma.size() + " sản phẩm",
+            tongSLSanPham + " chiếc ",
             "",
             PriceFormatter.format(tongTatCaTien)
         });
@@ -576,7 +576,7 @@ class ThongKe_Hoang extends JPanel {
             dsnv.size() + " nhân viên",
             dsncc.size() + " nhà cung cấp",
             dssp.size() + " loại",
-            tongSLSanPham + " phần",
+            tongSLSanPham + " chiếc",
             "",
             PriceFormatter.format(tongTatCaTien)
         });

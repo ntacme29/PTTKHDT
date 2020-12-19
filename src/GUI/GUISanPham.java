@@ -92,7 +92,7 @@ public class GUISanPham extends GUIFormContent {
 
         //Tạo phần show thông tin
         Show = Show();
-        Show.setBounds(0, 300, GUImenu.width_content, 300);
+        Show.setBounds(0, 300, GUImenu.width_content, 500);
         panel.add(Show);
 
         return panel;
@@ -311,7 +311,7 @@ public class GUISanPham extends GUIFormContent {
             Sua.add(txt_SanPham_Sua[i]);
         }
         
-        txt_SanPham_Sua[4].setEditable(false); // không cho người dùng nhập hình ảnh
+        txt_SanPham_Sua[8].setEditable(false); // không cho người dùng nhập hình ảnh
         //Lưu tất cả dữ liệu trên textfield lên database
         JButton Luu = new JButton("Lưu");
         Luu.setBackground(Color.decode("#90CAF9"));
@@ -614,7 +614,7 @@ public class GUISanPham extends GUIFormContent {
     //Clear textfield
     public void clearThem_Frame() {
         for (int i = 0; i < GUISanPham.array_SanPham.length; i++) {
-            if(i!=2&&i!=5)
+            if(i<2||i>4)
             txt_SanPham_Them[i].setText("");
         }
     }
@@ -688,11 +688,11 @@ public class GUISanPham extends GUIFormContent {
         //Panel chứa các text thông tin sản phẩm
         JPanel ChiTiet = new JPanel(null);
 
-        ChiTiet.setBounds(500, 0, 500, 300);
+        ChiTiet.setBounds(500, 0, 500, 500);
         //Nhãn dùng để hiện hình ảnh
         lbImage = new JLabel();
         lbImage.setBackground(Color.yellow);
-        lbImage.setBounds(200, 0, 300, 300);
+        lbImage.setBounds(100, 0, 300, 300);
 
         //Các textfield thông tin
         txMaMA = new JTextField();
