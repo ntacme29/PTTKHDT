@@ -79,7 +79,7 @@ public class GUINhapHang extends GUIFormBanNhap{
     //Tạo bảng sản phẩm
     private JPanel Table(){        
         table_SanPham=new GUIMyTable();        
-        table_SanPham.setHeaders(array_SanPham);              
+        table_SanPham.setHeaders(GUISanPham.array_SanPham);              
         docDB();
         table_SanPham.pane.setPreferredSize(new Dimension(GUImenu.width_content*50/100, 300));
         return table_SanPham;
@@ -94,10 +94,8 @@ public class GUINhapHang extends GUIFormBanNhap{
                 Logger.getLogger(GUISanPham.class.getName()).log(Level.SEVERE, null, ex);
             }
         }       
-        for (SanPhamDTO monAnDTO : SanPhamBUS.dsSanPham) {
-                table_SanPham.addRow(monAnDTO);
-                    
-            
+        for (SanPhamDTO DTO : SanPhamBUS.dsSanPham) {
+                table_SanPham.addRow(DTO);
         }
     }
     //Thanh tìm kiếm sản phẩm
@@ -229,7 +227,7 @@ public class GUINhapHang extends GUIFormBanNhap{
                 if (ds.getIDSanPham().equals(id)) {
                     int w = lbImage.getWidth();
                     int h = lbImage.getHeight();
-                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/MonAn/" + ds.getHinhAnh()));
+                    ImageIcon img = new ImageIcon(getClass().getResource("/Images/SanPham/" + ds.getHinhAnh()));
                     Image imgScaled = img.getImage().getScaledInstance(w, h, Image.SCALE_DEFAULT);
                     lbImage.setIcon(new ImageIcon(imgScaled));
 
@@ -324,7 +322,7 @@ public class GUINhapHang extends GUIFormBanNhap{
     protected JPanel panelThanhToan(){
         JPanel panel=new JPanel();
         ThanhToan=new GUIMyTable();
-        ThanhToan.setHeaders(new String[]{"Mã sản phẩm","Tên sản phẩm","Giá","Loại","Số lượng"});//chỗ này bỏ hình ảnh và đơn vị tính vì không cần
+        ThanhToan.setHeaders(new String[]{"Mã sản phẩm","Tên sản phẩm","Giá","Số lượng"});//chỗ này bỏ hình ảnh và đơn vị tính vì không cần
         ThanhToan.pane.setPreferredSize(new Dimension(GUImenu.width_content*49/100, 300));        
         panel.add(ThanhToan);   
         return panel;
@@ -342,20 +340,16 @@ public class GUINhapHang extends GUIFormBanNhap{
                 {
                     if(ThanhToan.tbModel.getValueAt(j, 0)==table_SanPham.tbModel.getValueAt(i, 0))
                     {
-                        int SlTrongThanhToan=a+Integer.valueOf(String.valueOf(ThanhToan.tbModel.getValueAt(j, 4)));
-                        
-                        ThanhToan.tbModel.setValueAt(SlTrongThanhToan, j, 4);
+                        int SlTrongThanhToan=a+Integer.valueOf(String.valueOf(ThanhToan.tbModel.getValueAt(j, 3)));
+                        ThanhToan.tbModel.setValueAt(SlTrongThanhToan, j, 3);
                         TinhTien();
                         return;
-                        
-                        
                     }
                 }
                     ThanhToan.addRow(new String[]{
                         String.valueOf(table_SanPham.tbModel.getValueAt(i, 0)),
                         String.valueOf(table_SanPham.tbModel.getValueAt(i, 1)),
-                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 2)),
-                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 4)),
+                        String.valueOf(table_SanPham.tbModel.getValueAt(i, 7)),
                         String.valueOf(a)
                     });
                     TinhTien();
@@ -485,7 +479,7 @@ public class GUINhapHang extends GUIFormBanNhap{
             float thanhtien=0;
             for(int i=0;i<ThanhToan.tb.getRowCount();i++){
                 
-                int soluong=Integer.parseInt(String.valueOf(ThanhToan.tbModel.getValueAt(i, 4)));
+                int soluong=Integer.parseInt(String.valueOf(ThanhToan.tbModel.getValueAt(i, 3)));
                 float dongia=Float.valueOf(String.valueOf(ThanhToan.tbModel.getValueAt(i, 2)));
                 thanhtien+=dongia*soluong;
                 

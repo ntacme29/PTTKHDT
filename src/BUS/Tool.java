@@ -134,7 +134,7 @@ public static boolean isGmail(String gmail)
     
     public static boolean isName(String name)
     {
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9 ]");
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9 -_]");
         Matcher matcher = pattern.matcher(name);
         if (matcher.find()) {
             return false;

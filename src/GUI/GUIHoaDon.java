@@ -45,7 +45,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GUIHoaDon extends GUIFormContent {
     //Tạo mảng tiêu đề
-    private static String array_HoaDon[]={"Mã hóa đơn","Mã khách hàng","Mã nhân viên","Mã khuyến mãi","Thành tiền","Ngày lập"};   
+    private static String array_HoaDon[]={"Mã hóa đơn","Mã khách hàng","Mã nhân viên","Thành tiền","Ngày lập","Trạng thái"};   
     //Tạo JTable , GUIMyTable kế thừa từ JTable và được chỉnh sửa
     public GUIMyTable table_HoaDon;
     //Tạo các nút để chọn ngày

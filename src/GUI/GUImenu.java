@@ -24,10 +24,10 @@ import javax.swing.SwingConstants;
 //class mở đầu khi form đăng nhập được gọi , nơi sườn của cả bài
 public class GUImenu extends JFrame{
     
-    private String arr_listmotaQuyen[]={"QLBanHang","QLNhapHang","QLMonAn","QLNguyenLieu","QLCongThuc","QLHoaDon","QLHDNhap",
-        "QLKhuyenMai","QLKhachHang","QLNhanVien","QLNhaCungCap","QLTaiKhoan","QLPhanQuyen","QLThongKe"};
+    private String arr_listmotaQuyen[]={"QLBanHang","QLNhapHang","QLSanPham","QLThuongHieu","QLLoaiDay","QLHoaDon","QLHDNhap",
+        "QLKhachHang","QLNhanVien","QLNhaCungCap","QLTaiKhoan","QLPhanQuyen","QLThongKe"};
     //Tạo mảng menuleft cho form
-    private String arr_listmenu[]={"Bán hàng","Nhập hàng","Món ăn","Hóa đơn","Hóa đơn nhập","Khách Hàng","Nhân viên","Nhà cung cấp","Tài khoản","Phân quyền","Thống kê","Thương hiệu","Loại dây"};
+    private String arr_listmenu[]={"Bán hàng","Nhập hàng","Sản phẩm","Hóa đơn","Hóa đơn nhập","Khách Hàng","Nhân viên","Nhà cung cấp","Tài khoản","Phân quyền","Thống kê","Thương hiệu","Loại dây"};
     //Tạo mảng icon cho menuleft
     private String arr_icon[]={"src/Images/Icon/sell1-30.png","src/Images/Icon/nhaphang-30.png","src/Images/Icon/monan-30.png",
         "src/Images/Icon/nguyenlieu-30.png","src/Images/Icon/congthuc-30.png","src/Images/Icon/hoadon-30.png",
@@ -252,10 +252,10 @@ public class GUImenu extends JFrame{
                     GUIPhanQuyen PhanQuyen=new GUIPhanQuyen();
                     pn_content[i]=PhanQuyen; break;
                 case 10:
-//                    GUIThongKe ThongKe=new GUIThongKe();
-//                    pn_content[i]=ThongKe; break;
-                    GUIPhanQuyen PhanQuyena=new GUIPhanQuyen();
-                    pn_content[i]=PhanQuyena; break;
+                    GUIThongKe ThongKe=new GUIThongKe();
+                    pn_content[i]=ThongKe; break;
+//                    GUIPhanQuyen PhanQuyena=new GUIPhanQuyen();
+//                    pn_content[i]=PhanQuyena; break;
                 case 11:
                     GUIThuongHieu ThuongHieu=new GUIThuongHieu();
                     pn_content[i]=ThuongHieu; break;

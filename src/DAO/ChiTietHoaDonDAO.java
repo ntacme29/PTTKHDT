@@ -38,7 +38,7 @@ public class ChiTietHoaDonDAO {
 
     public void them(ChiTietHoaDonDTO chitiethd) { //cần ghi lại khi qua class khác
         try {
-            String qry = "INSERT INTO chitiethoadon values (";
+            String qry = "INSERT INTO chitiethoadonban values (";
             qry = qry + "'" + chitiethd.getIDHoaDon()+ "'";
             qry = qry + "," + "'" + chitiethd.getIDSanPham()+ "'";
             qry = qry + "," + "'" + chitiethd.getSoLuong() + "'";

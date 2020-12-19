@@ -23,7 +23,7 @@ public class ChiTietHoaDonNhapBUS {
             dscthdn = new ArrayList<>();
         }
         dscthdn = cthdn.docCTHDN(); // đọc dữ liệu từ database
-        autosetDonGia();
+        autosetDonGiavaThanhTien();
     }
     public void  them(ChiTietHoaDonNhapDTO CTHDNDTO)
     {
@@ -73,11 +73,13 @@ public class ChiTietHoaDonNhapBUS {
         }
         return result;
     }
-    private void autosetDonGia(){
+    private void autosetDonGiavaThanhTien(){
         for(int i=0;i<dscthdn.size();i++){
             dscthdn.get(i).setGiaNhap(SanPhamBUS.dsSanPham.get(SanPhamBUS.timViTri(dscthdn.get(i).getIDSanPham())).getGia());
         }
-       
+       for(int i=0;i<dscthdn.size();i++){
+            dscthdn.get(i).setThanhTien(dscthdn.get(i).getGiaNhap()*dscthdn.get(i).getSoLuong());
+        }
     }
     public ArrayList<ChiTietHoaDonNhapDTO> search(String type, String value) {
         ArrayList<ChiTietHoaDonNhapDTO> result = new ArrayList<>();

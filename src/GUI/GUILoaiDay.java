@@ -219,8 +219,8 @@ public class GUILoaiDay extends GUIFormContent{
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
                     LoaiDayDTO DTO = new LoaiDayDTO();
-                            DTO.setIDLoaiDay(txt_LoaiDay_Them[0].getText());
-                            DTO.setTenLoaiDay(txt_LoaiDay_Them[1].getText());
+                            DTO.setIDLoaiDay(txt_LoaiDay_Sua[0].getText());
+                            DTO.setTenLoaiDay(txt_LoaiDay_Sua[1].getText());
                     if(checkTextSua(DTO))
                     {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    
@@ -347,7 +347,7 @@ public class GUILoaiDay extends GUIFormContent{
         LoaiDayBUS Bus = new LoaiDayBUS();
         if (LoaiDayBUS.dsld == null) {
             try {
-                Bus.docTH();
+                Bus.docLD();
             } catch (Exception ex) {
                 Logger.getLogger(GUILoaiDay.class.getName()).log(Level.SEVERE, null, ex);
             }

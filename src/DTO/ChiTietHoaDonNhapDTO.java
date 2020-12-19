@@ -3,7 +3,7 @@ package DTO;
 public class ChiTietHoaDonNhapDTO {
     private String IDHoaDonNhap,IDSanPham;
     private int SoLuong;
-    private float GiaNhap;
+    private float GiaNhap,ThanhTien;
     public ChiTietHoaDonNhapDTO() {
     }
 
@@ -37,6 +37,14 @@ public class ChiTietHoaDonNhapDTO {
 
     public void setGiaNhap(float GiaNhap) {
         this.GiaNhap = GiaNhap;
+    }
+
+    public float getThanhTien() {
+        return ThanhTien;
+    }
+
+    public void setThanhTien(float ThanhTien) {
+        this.ThanhTien = ThanhTien;
     }
     
 }

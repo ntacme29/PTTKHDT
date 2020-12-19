@@ -278,13 +278,13 @@ public class GUINhanVien extends GUIFormContent {
                 int a = JOptionPane.showConfirmDialog(Sua, "Bạn chắc chứ ?", "", JOptionPane.YES_NO_OPTION);
                 if (a == JOptionPane.YES_OPTION) {
                     NhanVienDTO DTO = new NhanVienDTO();
-                    DTO.setIDNhanVien(txt_NhanVien_Them[0].getText());
-                    DTO.setHoNhanVien(txt_NhanVien_Them[1].getText());
-                    DTO.setTenNhanVien(txt_NhanVien_Them[2].getText());
-                    DTO.setGmail(txt_NhanVien_Them[3].getText());
-                    DTO.setGioiTinh(cbGioiTinh_Them.getSelectedItem().toString());
-                    DTO.setSoDienThoai(txt_NhanVien_Them[5].getText());
-                    DTO.setChucVu(cbChucVu_Them.getSelectedItem().toString());
+                    DTO.setIDNhanVien(txt_NhanVien_Sua[0].getText());
+                    DTO.setHoNhanVien(txt_NhanVien_Sua[1].getText());
+                    DTO.setTenNhanVien(txt_NhanVien_Sua[2].getText());
+                    DTO.setGmail(txt_NhanVien_Sua[3].getText());
+                    DTO.setGioiTinh(cbGioiTinh_Sua.getSelectedItem().toString());
+                    DTO.setSoDienThoai(txt_NhanVien_Sua[5].getText());
+                    DTO.setChucVu(cbChucVu_Sua.getSelectedItem().toString());
                     if (checkTextSua(DTO)) {
                         //Chạy hàm để lưu lại việc sửa dữ liệu    
                         buttonLuu_Sua(DTO);
