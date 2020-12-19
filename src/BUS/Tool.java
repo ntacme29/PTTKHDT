@@ -620,27 +620,26 @@ public static boolean isGmail(String gmail)
             HoaDonBUS hdBUS = new HoaDonBUS();
             HoaDonNhapBUS hdnBUS = new HoaDonNhapBUS();
             KhachHangBUS khBUS = new KhachHangBUS();
-            SanPhamBUS maBUS = new SanPhamBUS();
+            SanPhamBUS spBUS = new SanPhamBUS();
             NhaCungCapBUS nccBUS = new NhaCungCapBUS();
             NhanVienBUS nvBUS = new NhanVienBUS();
             PhanQuyenBUS pqBUS = new PhanQuyenBUS();
             TaiKhoanBUS tkBUS = new TaiKhoanBUS();
             ThuongHieuBUS thBUS = new ThuongHieuBUS();
             LoaiDayBUS ldBUS=new LoaiDayBUS();
+            spBUS.docDSSanPham();
             thBUS.docTH();
-            ldBUS.docTH();
+            ldBUS.docLD();
             cthdBUS.docCTHD();
             cthdnBUS.docCTHDN();
             hdBUS.docHD();
             hdnBUS.docHDN();
             khBUS.docDSKH();
-            maBUS.docDSSanPham();
             nccBUS.docDSNCC();
             nvBUS.docDSNV();
             pqBUS.docDSPQ();
             tkBUS.docDSTK(); 
         }catch(NullPointerException e){
-        e.printStackTrace();
         return false;
         }  
         return true;

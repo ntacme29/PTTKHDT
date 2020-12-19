@@ -13,7 +13,7 @@ public class LoaiDayBUS {
     {
         
     }
-    public  void  docTH() throws Exception 
+    public  void  docLD() throws Exception 
     {
         LoaiDayDAO thdata=new LoaiDayDAO();
         if(dsld==null) dsld=new ArrayList<LoaiDayDTO>();
