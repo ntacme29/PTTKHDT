@@ -29,10 +29,10 @@ public class GUImenu extends JFrame{
     //Tạo mảng menuleft cho form
     private String arr_listmenu[]={"Bán hàng","Nhập hàng","Sản phẩm","Hóa đơn","Hóa đơn nhập","Khách Hàng","Nhân viên","Nhà cung cấp","Tài khoản","Phân quyền","Thống kê","Thương hiệu","Loại dây"};
     //Tạo mảng icon cho menuleft
-    private String arr_icon[]={"src/Images/Icon/sell1-30.png","src/Images/Icon/nhaphang-30.png","src/Images/Icon/monan-30.png",
+    private String arr_icon[]={"src/Images/Icon/sell1-30.png","src/Images/Icon/nhaphang-30.png","src/Images/Icon/icons8-smart-watch-30.png",
         "src/Images/Icon/hoadon-30.png","src/Images/Icon/hoadonnhap-30.png","src/Images/Icon/khachhang-30.png",
         "src/Images/Icon/nhanvien-30.png","src/Images/Icon/nhacungcap-30.png","src/Images/Icon/taikhoan-30.png",
-        "src/Images/Icon/phanquyen1-30.png","src/Images/Icon/thongke-30.png","src/Images/Icon/icons8_small_business_30px_3.png",
+        "src/Images/Icon/phanquyen1-30.png","src/Images/Icon/thongke-30.png","src/Images/Icon/icons8-shop-30.png",
         "src/Images/Icon/nguyenlieu-30.png"};
     //Tạo mảng nhãn cho menuleft
     private JLabel lbl_listmenu[]=new JLabel[arr_listmenu.length];
