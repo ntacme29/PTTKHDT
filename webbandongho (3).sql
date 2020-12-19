@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 19, 2020 lúc 09:07 AM
+-- Thời gian đã tạo: Th12 19, 2020 lúc 10:26 AM
 -- Phiên bản máy phục vụ: 10.4.16-MariaDB
 -- Phiên bản PHP: 7.4.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `test`
+-- Cơ sở dữ liệu: `webbandongho`
 --
 
 -- --------------------------------------------------------
@@ -28,7 +28,6 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `chitiethoadonban` (
-  `IDChiTietHoaDonBan` int(11) NOT NULL,
   `IDHoaDonBan` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `IDSanPham` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL
@@ -38,14 +37,15 @@ CREATE TABLE `chitiethoadonban` (
 -- Đang đổ dữ liệu cho bảng `chitiethoadonban`
 --
 
-INSERT INTO `chitiethoadonban` (`IDChiTietHoaDonBan`, `IDHoaDonBan`, `IDSanPham`, `SoLuong`) VALUES
-(1, 'DB004', 'SP027', 1),
-(2, 'DB004', 'SP034', 1),
-(3, 'DB004', 'SP012', 1),
-(4, 'DB003', 'SP055', 1),
-(5, 'DB002', 'SP059', 1),
-(6, 'DB001', 'SP044', 1),
-(7, 'DB001', 'SP005', 1);
+INSERT INTO `chitiethoadonban` (`IDHoaDonBan`, `IDSanPham`, `SoLuong`) VALUES
+('DB001', 'SP005', 1),
+('DB001', 'SP044', 1),
+('DB002', 'SP059', 1),
+('DB003', 'SP055', 1),
+('DB004', 'SP012', 1),
+('DB004', 'SP027', 1),
+('DB004', 'SP034', 1),
+('DB7', 'SP005', 1);
 
 -- --------------------------------------------------------
 
@@ -54,7 +54,6 @@ INSERT INTO `chitiethoadonban` (`IDChiTietHoaDonBan`, `IDHoaDonBan`, `IDSanPham`
 --
 
 CREATE TABLE `chitiethoadonnhap` (
-  `IDChiTietHoaDonNhap` int(11) NOT NULL,
   `IDHoaDonNhap` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `IDSanPham` char(5) COLLATE utf8_unicode_ci NOT NULL,
   `SoLuong` int(11) NOT NULL
@@ -64,15 +63,15 @@ CREATE TABLE `chitiethoadonnhap` (
 -- Đang đổ dữ liệu cho bảng `chitiethoadonnhap`
 --
 
-INSERT INTO `chitiethoadonnhap` (`IDChiTietHoaDonNhap`, `IDHoaDonNhap`, `IDSanPham`, `SoLuong`) VALUES
-(1, 'DN004', 'SP053', 4),
-(2, 'DN004', 'SP050', 2),
-(3, 'DN003', 'SP018', 3),
-(4, 'DN002', 'SP058', 4),
-(5, 'DN002', 'SP066', 5),
-(6, 'DN001', 'SP060', 3),
-(7, 'DN001', 'SP045', 1),
-(8, 'DN001', 'SP025', 2);
+INSERT INTO `chitiethoadonnhap` (`IDHoaDonNhap`, `IDSanPham`, `SoLuong`) VALUES
+('DN001', 'SP025', 2),
+('DN001', 'SP045', 1),
+('DN001', 'SP060', 3),
+('DN002', 'SP058', 4),
+('DN002', 'SP066', 5),
+('DN003', 'SP018', 3),
+('DN004', 'SP050', 2),
+('DN004', 'SP053', 4);
 
 -- --------------------------------------------------------
 
@@ -97,7 +96,10 @@ INSERT INTO `hoadonban` (`IDHoaDonBan`, `IDKhachHang`, `IDNhanVien`, `ThanhTien`
 ('DB001', 'KH003', 'NV001', 10000000, '2020-10-20', ' '),
 ('DB002', 'KH005', 'NV002', 4650000, '2020-11-20', ' '),
 ('DB003', 'KH004', 'NV004', 5710000, '2020-11-27', ' '),
-('DB004', 'KH001', 'NV004', 9217000, '2020-12-01', ' ');
+('DB004', 'KH001', 'NV004', 9217000, '2020-12-01', ' '),
+('DB5', 'KH001', 'NV001', 25780000, '2020-12-19', 'null'),
+('DB6', 'KH003', 'NV001', 3810000, '2020-12-19', 'null'),
+('DB7', 'KH001', 'NV001', 7080000, '2020-12-19', 'null');
 
 -- --------------------------------------------------------
 
@@ -198,6 +200,58 @@ INSERT INTO `nhacungcap` (`IDNhaCungCap`, `TenNhacungCap`, `DiaChi`, `SoDienThoa
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `nhanvien`
+--
+
+CREATE TABLE `nhanvien` (
+  `IDNhanVien` char(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `HoNhanVien` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `TenNhanVien` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `Gmail` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `GioiTinh` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `SoDienThoai` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `ChucVu` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Đang đổ dữ liệu cho bảng `nhanvien`
+--
+
+INSERT INTO `nhanvien` (`IDNhanVien`, `HoNhanVien`, `TenNhanVien`, `Gmail`, `GioiTinh`, `SoDienThoai`, `ChucVu`) VALUES
+('NV001', 'Nguyễn Minh ', 'Nguyên', 'MinhNguyen@gmail.com', 'Nam', '0327377921', 'Giám đốc'),
+('NV002', 'Nguyễn Quốc ', 'Tuấn', 'QuocTuan@gmail.com', 'Nam', '0909000888', 'Nhân viên'),
+('NV003', 'Lê Trí', 'Nhân', 'TriNhan@gmail.com', 'chưa biết', '0304050621', 'Quản lý'),
+('NV004', 'Nguyễn Tấn ', 'Phát', 'TanPhat@gmail.com', 'Nam', '0903221155', 'Nhân viên'),
+('NV005', 'Nguyễn', 'Thịnh', 'NguyenThinh@gmail.com', 'Nam', '0203040101', 'Nhân viên'),
+('NV006', 'Cao Quốc', 'Hưng', 'QuocHung@gmail.com', 'Nam', '0530125124', 'Nhân viên');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `phanquyen`
+--
+
+CREATE TABLE `phanquyen` (
+  `IDPhanQuyen` char(5) COLLATE utf8_unicode_ci NOT NULL,
+  `TenQuyen` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `MoTaQuyen` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `phanquyen`
+--
+
+INSERT INTO `phanquyen` (`IDPhanQuyen`, `TenQuyen`, `MoTaQuyen`) VALUES
+('PQ000', 'admin', 'QLBanHangQLNhapHangQLSanPhamQLThuongHieuQLLoaiDayQLHoaDonQLHDNhapQLKhachHangQLNhanVienQLNhaCungCapQLTaiKhoanQLPhanQuyenQLThongKe'),
+('PQ001', 'Quản lý', 'QLBanHangQLNhapHangQLSanPhamQLThuongHieuQLLoaiDayQLHoaDonQLHDNhapQLKhachHangQLNhanVienQLNhaCungCapQLThongKe'),
+('PQ002', 'Bán hàng', 'QLBanHangQLHoaDonQLKhachHang'),
+('PQ003', 'Nhập hàng', 'QLNhapHangQLHDNhap'),
+('PQ004', 'Bán và nhập hàng', 'QLBanHangQLNhapHangQLHoaDonQLHDNhapQLKhachHang'),
+('PQ5', 'aaaaaa', 'QLMonAn');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `sanpham`
 --
 
@@ -218,11 +272,8 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`IDSanPham`, `TenSanPham`, `IDDay`, `IDThuongHieu`, `IDNhaCungCap`, `BaoHanh`, `SoLuong`, `Gia`, `HinhAnh`) VALUES
-('SP001', 'Orient_FAG02004B0', 'LD001', 'TH011', 'NC001', '2 năm', 10, 5810000, 'Orient_FAG02004B0.jpg'),
-('SP002', 'Orient_FAL00003W0', 'LD004', 'TH011', 'NC001', '2 năm', 10, 6170000, 'Orient_FAL00003W0.jpg'),
 ('SP003', 'Orient_FET0P002B0', 'LD004', 'TH011', 'NC001', '2 năm', 10, 9080000, 'Orient_FET0P002B0.jpg'),
-('SP004', 'Orient_FGW01004A0', 'LD001', 'TH011', 'NC001', '2 năm', 10, 3810000, 'Orient_FGW01004A0.jpg'),
-('SP005', 'Orient_RA-AC0011S10B', 'LD001', 'TH011', 'NC001', '2 năm', 10, 7080000, 'Orient_RA-AC0011S10B.jpg'),
+('SP005', 'Orient_RA-AC0011S10B', 'LD001', 'TH011', 'NC001', '2 năm', 9, 7080000, 'Orient_RA-AC0011S10B.jpg'),
 ('SP006', 'Fouette_OR-FAIRYIII', 'LD001', 'TH007', 'NC006', '2 năm', 10, 2550000, 'Fouette_OR-FAIRYIII.jpg'),
 ('SP007', 'Fouette_OR-5', 'LD001', 'TH007', 'NC006', '2 năm', 10, 1550000, 'Fouette_OR-5.jpg'),
 ('SP008', 'Fouette_OR-STAR', 'LD001', 'TH007', 'NC006', '2 năm', 10, 1550000, 'Fouette_OR-STAR.jpg'),
@@ -309,7 +360,7 @@ INSERT INTO `taikhoankh` (`TaiKhoan`, `MatKhau`, `IDNhanVien`, `IDPhanQuyen`) VA
 ('admin', 'admin', 'NV001', 'PQ000'),
 ('caohung', 'iklmno', 'NV003', 'PQ001'),
 ('lenhan', '290620', 'NV002', 'PQ002'),
-('nguyenhuy', 'qwerty', 'NV004', 'PQ003'),
+('nguyenhuy', 'qwertya', 'NV004', 'PQ003'),
 ('nguyennguyen', '456789', 'NV005', 'PQ004'),
 ('nguyenphat', 'abcdef', 'NV006', 'PQ004');
 
@@ -352,7 +403,7 @@ INSERT INTO `thuonghieu` (`IDThuongHieu`, `TenThuongHieu`) VALUES
 -- Chỉ mục cho bảng `chitiethoadonban`
 --
 ALTER TABLE `chitiethoadonban`
-  ADD PRIMARY KEY (`IDChiTietHoaDonBan`),
+  ADD PRIMARY KEY (`IDHoaDonBan`,`IDSanPham`),
   ADD KEY `IDHoaDon` (`IDHoaDonBan`),
   ADD KEY `IDSanPham` (`IDSanPham`);
 
@@ -360,7 +411,7 @@ ALTER TABLE `chitiethoadonban`
 -- Chỉ mục cho bảng `chitiethoadonnhap`
 --
 ALTER TABLE `chitiethoadonnhap`
-  ADD PRIMARY KEY (`IDChiTietHoaDonNhap`),
+  ADD PRIMARY KEY (`IDHoaDonNhap`,`IDSanPham`),
   ADD KEY `IDHoaDonNhap` (`IDHoaDonNhap`),
   ADD KEY `IDSanPham` (`IDSanPham`);
 
@@ -397,6 +448,18 @@ ALTER TABLE `loaiday`
 --
 ALTER TABLE `nhacungcap`
   ADD PRIMARY KEY (`IDNhaCungCap`);
+
+--
+-- Chỉ mục cho bảng `nhanvien`
+--
+ALTER TABLE `nhanvien`
+  ADD PRIMARY KEY (`IDNhanVien`);
+
+--
+-- Chỉ mục cho bảng `phanquyen`
+--
+ALTER TABLE `phanquyen`
+  ADD PRIMARY KEY (`IDPhanQuyen`);
 
 --
 -- Chỉ mục cho bảng `sanpham`
