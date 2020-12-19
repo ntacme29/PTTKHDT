@@ -252,8 +252,10 @@ public class GUImenu extends JFrame{
                     GUIPhanQuyen PhanQuyen=new GUIPhanQuyen();
                     pn_content[i]=PhanQuyen; break;
                 case 10:
-                    GUIThongKe ThongKe=new GUIThongKe();
-                    pn_content[i]=ThongKe; break;
+//                    GUIThongKe ThongKe=new GUIThongKe();
+//                    pn_content[i]=ThongKe; break;
+                    GUIPhanQuyen PhanQuyena=new GUIPhanQuyen();
+                    pn_content[i]=PhanQuyena; break;
                 case 11:
                     GUIThuongHieu ThuongHieu=new GUIThuongHieu();
                     pn_content[i]=ThuongHieu; break;

@@ -1,7 +1,7 @@
 //Đã sửa
 package DAO;
 
-import DTO.*;
+import DTO.SanPhamDTO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class SanPhamDAO {
 
     public ArrayList docDB() throws SQLException, Exception { //cần ghi lại khi qua class khác
         
-        ArrayList<SanPhamDTO> dsma = new ArrayList<>();
+        ArrayList<SanPhamDTO> dssp = new ArrayList<>();
         try {
             String qry = "SELECT * FROM sanpham";
             ResultSet result = connection.excuteQuery(qry);
@@ -27,19 +27,19 @@ public class SanPhamDAO {
                     sanpham.setIDSanPham(result.getString("IDSanPham"));
                     sanpham.setTenSanPham(result.getString("TenSanPham"));
                     sanpham.setIDDay(result.getString("IDDay"));
-                    sanpham.setIDThuongHieu(result.getString("ThuongHieu"));
-                    sanpham.setIDNhaCungCap(result.getString("NhaCungCap"));
+                    sanpham.setIDThuongHieu(result.getString("IDThuongHieu"));
+                    sanpham.setIDNhaCungCap(result.getString("IDNhaCungCap"));
                     sanpham.setBaoHanh(result.getString("BaoHanh"));
                     sanpham.setSoLuong(result.getInt("SoLuong"));
                     sanpham.setGia(result.getFloat("Gia"));
                     sanpham.setHinhAnh(result.getString("HinhAnh"));
-                    dsma.add(sanpham);
+                    dssp.add(sanpham);
                 }
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Không đọc được dữ liệu bảng món ăn");
+            JOptionPane.showMessageDialog(null, "Không đọc được dữ liệu bảng sản phẩm");
         }
-        return dsma;
+        return dssp;
     }
 
     public void them(SanPhamDTO sanpham) { //cần ghi lại khi qua class khác
@@ -96,9 +96,6 @@ public class SanPhamDAO {
             
         }
     }
-
-    
-
 }
 
 
