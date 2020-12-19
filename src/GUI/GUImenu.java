@@ -30,10 +30,10 @@ public class GUImenu extends JFrame{
     private String arr_listmenu[]={"Bán hàng","Nhập hàng","Sản phẩm","Hóa đơn","Hóa đơn nhập","Khách Hàng","Nhân viên","Nhà cung cấp","Tài khoản","Phân quyền","Thống kê","Thương hiệu","Loại dây"};
     //Tạo mảng icon cho menuleft
     private String arr_icon[]={"src/Images/Icon/sell1-30.png","src/Images/Icon/nhaphang-30.png","src/Images/Icon/monan-30.png",
-        "src/Images/Icon/nguyenlieu-30.png","src/Images/Icon/congthuc-30.png","src/Images/Icon/hoadon-30.png",
-        "src/Images/Icon/hoadonnhap-30.png","src/Images/Icon/khuyenmai-30.png","src/Images/Icon/khachhang-30.png",
+        "src/Images/Icon/hoadon-30.png","src/Images/Icon/hoadonnhap-30.png","src/Images/Icon/khachhang-30.png",
         "src/Images/Icon/nhanvien-30.png","src/Images/Icon/nhacungcap-30.png","src/Images/Icon/taikhoan-30.png",
-        "src/Images/Icon/phanquyen1-30.png","src/Images/Icon/thongke-30.png"};
+        "src/Images/Icon/phanquyen1-30.png","src/Images/Icon/thongke-30.png","src/Images/Icon/icons8_small_business_30px_3.png",
+        "src/Images/Icon/nguyenlieu-30.png"};
     //Tạo mảng nhãn cho menuleft
     private JLabel lbl_listmenu[]=new JLabel[arr_listmenu.length];
     //Tạo mảng bảng nhỏ để đặt các icon và nhãn của menuleft
@@ -117,7 +117,7 @@ public class GUImenu extends JFrame{
 //        JPanel menu=new JPanel(new GridLayout(14, 1));
         JPanel menu=new JPanel(null);
         
-        JLabel logo=new JLabel(Tool.showIcon(width_menu, 200, "src/Images/Icon/Logo-Design-removebg-preview.png"));
+        JLabel logo=new JLabel(Tool.showIcon(width_menu, 200, "src/Images/Icon/Rolex-Daytona.png"));
         logo.setBounds(0, 0, width_menu, 200);
         //Sự kiện khi ấn vào logo thì hiện tên 
         logo.addMouseListener(new MouseAdapter(){

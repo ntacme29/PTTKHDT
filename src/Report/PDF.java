@@ -177,7 +177,7 @@ public class PDF {
 
             //Tạo table cho các chi tiết của hóa đơn
             PdfPTable pdfTable = new PdfPTable(5);
-            double tongKhuyenMai = 0;
+//            double tongKhuyenMai = 0;
             float tongThanhTien = 0;
 
             //Set headers cho table chi tiết
@@ -212,7 +212,7 @@ public class PDF {
             document.add(pdfTable);
             document.add(Chunk.NEWLINE);
 
-            tongKhuyenMai = hd.getThanhTien() - tongThanhTien;
+//            tongKhuyenMai = hd.getThanhTien() - tongThanhTien;
             Paragraph paraTongThanhTien = new Paragraph(new Phrase("Tổng thành tiền: " + PriceFormatter.format(tongThanhTien), fontData));
             paraTongThanhTien.setIndentationLeft(300);
             document.add(paraTongThanhTien);
