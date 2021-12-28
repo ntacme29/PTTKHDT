@@ -24,8 +24,8 @@ import javax.swing.SwingConstants;
 //class mở đầu khi form đăng nhập được gọi , nơi sườn của cả bài
 public class GUImenu extends JFrame{
     
-    private String arr_listmotaQuyen[]={"QLBanHang","QLNhapHang","QLSanPham","QLThuongHieu","QLLoaiDay","QLHoaDon","QLHDNhap",
-        "QLKhachHang","QLNhanVien","QLNhaCungCap","QLTaiKhoan","QLPhanQuyen","QLThongKe"};
+    private String arr_listmotaQuyen[]={"QLBanHang","QLNhapHang","QLSanPham","QLHoaDon","QLHDNhap",
+        "QLKhachHang","QLNhanVien","QLNhaCungCap","QLTaiKhoan","QLPhanQuyen","QLThongKe","QLThuongHieu","QLLoaiDay"};
     //Tạo mảng menuleft cho form
     private String arr_listmenu[]={"Bán hàng","Nhập hàng","Sản phẩm","Hóa đơn","Hóa đơn nhập","Khách Hàng","Nhân viên","Nhà cung cấp","Tài khoản","Phân quyền","Thống kê","Thương hiệu","Loại dây"};
     //Tạo mảng icon cho menuleft

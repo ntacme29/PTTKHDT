@@ -119,7 +119,7 @@ public class GUITaiKhoan extends GUIFormContent {
                 themNhanVien.setBounds(355, y, 30, 30);
                 Them_TaiKhoan.add(themNhanVien);
             }
-            if(i==2)
+            if(i==3)
             {
                 themPhanQuyen=new JButton();
                 themPhanQuyen.setIcon(new ImageIcon(this.getClass().getResource("/Images/Icon/them1-30.png")));
@@ -231,13 +231,13 @@ public class GUITaiKhoan extends GUIFormContent {
             txt_TaiKhoan_Sua[i] = new JTextField();
             txt_TaiKhoan_Sua[i].setBounds(200, y, 150, 30);
 
-            if(i==2)
+            if(i==3)
             {
                 suaPhanQuyen=new JButton();
                 suaPhanQuyen.setIcon(new ImageIcon(this.getClass().getResource("/Images/Icon/xemchitiet-30.png")));
                 suaPhanQuyen.setBorder(BorderFactory.createLineBorder(Color.decode("#90CAF9"), 1));
                 suaPhanQuyen.addActionListener((ae) -> {
-                    btnChonQuyen(txt_TaiKhoan_Sua[2]);
+                    btnChonQuyen(txt_TaiKhoan_Sua[3]);
                 });
                 suaPhanQuyen.setBounds(355, y, 30, 30);
                 Sua.add(suaPhanQuyen);

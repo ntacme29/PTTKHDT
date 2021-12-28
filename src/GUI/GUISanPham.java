@@ -40,7 +40,7 @@ public class GUISanPham extends GUIFormContent {
     //Nút lấy tên ảnh
     private JButton btnFileAnh;
     //Tạo mảng tiêu đề
-    public static String array_SanPham[] = {"Mã", "Tên", "Loại dây", "Thương hiệu", "Nhà cung cấp", "Bảo hành","Số lượng","Gia","Hình ảnh"};
+    public static String array_SanPham[] = {"Mã", "Tên", "Loại dây", "Thương hiệu", "Nhà cung cấp", "Bảo hành","Số lượng","Giá","Hình ảnh"};
     //Tạo JTable , GUIMyTable kế thừa từ JTable và được chỉnh sửa
     private GUIMyTable table_SanPham;
     //Panel chứa phần show thông tin sản phẩm
@@ -66,11 +66,11 @@ public class GUISanPham extends GUIFormContent {
     //Tạo cờ hiệu cho việc các Dialog có được tắt đúng cách hay không
     private int cohieu = 0;
     private JComboBox cbLoaiDay_Them,cbLoaiDay_Sua;
-    private String array_LoaiDay[]={"Dĩa","Phần","Ly"};
+    private String array_LoaiDay[]={"LD001","LD002","LD003","LD004"};
     private JComboBox cbThuongHieu_Them,cbThuongHieu_Sua;
-    private String array_ThuongHieu[]={"Dĩa","Phần","Ly"};
+    private String array_ThuongHieu[]={"TH001","TH002","TH003","TH004","TH005","TH006","TH007","TH008","TH009","TH010","TH011","TH012","TH013","TH014"};
     private JComboBox cbNhaCungCap_Them,cbNhaCungCap_Sua;
-    private String array_NhaCungCap[]={"Món chính","Món phụ","Nước uống"};
+    private String array_NhaCungCap[]={"NC001","NC002","NC003","NC004","NC005","NC006"};
     public GUISanPham() {
         super();
     }
@@ -519,9 +519,9 @@ public class GUISanPham extends GUIFormContent {
         } else if (!Tool.isName(String.valueOf(DTO.getGia()))) {
             JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
             txt_SanPham_Them[7].requestFocus();
-        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
-            txt_SanPham_Them[7].requestFocus();
+//        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
+//            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000.000");
+//            txt_SanPham_Them[7].requestFocus();
         } else if (!Tool.isHinhAnh(DTO.getHinhAnh())) {
             JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
             txt_SanPham_Them[8].requestFocus();
@@ -568,9 +568,9 @@ public class GUISanPham extends GUIFormContent {
         } else if (!Tool.isName(String.valueOf(DTO.getGia()))) {
             JOptionPane.showMessageDialog(null, "Đơn giá không được chứa ký tự đặc biệt");
             txt_SanPham_Sua[7].requestFocus();
-        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
-            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000");
-            txt_SanPham_Sua[7].requestFocus();
+//        } else if (!Tool.isTenThousandToOneBil(String.valueOf(DTO.getGia()))) {
+//            JOptionPane.showMessageDialog(null, "Đơn giá phải nằm trong khoảng 10.000 đến 1.000.000.000");
+//            txt_SanPham_Sua[7].requestFocus();
         } else if (!Tool.isHinhAnh(DTO.getHinhAnh())) {
             JOptionPane.showMessageDialog(null, "Hình ảnh phải được định dạng là : *.jpg hoặc *.png ");
             txt_SanPham_Sua[8].requestFocus();
@@ -864,17 +864,17 @@ public class GUISanPham extends GUIFormContent {
         }
     }
 
-//    @Override
-//    protected void XuatExcel_click(MouseEvent evt) {
-//        new XuatExcel().xuatFileExcelSanPham();
-//
-//    }
-//
-//    @Override
-//    protected void NhapExcel_click(MouseEvent evt) {
-//        new DocExcel().docFileExcelSanPham();
-//
-//    }
+    @Override
+    protected void XuatExcel_click(MouseEvent evt) {
+        new XuatExcel().xuatFileExcelSanPham();
+
+    }
+
+    @Override
+    protected void NhapExcel_click(MouseEvent evt) {
+        new DocExcel().docFileExcelSanPham();
+
+    }
 
     //Hàm khi ấn nút làm mới
     private void LamMoi() {

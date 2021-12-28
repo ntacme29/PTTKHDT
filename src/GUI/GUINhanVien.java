@@ -619,15 +619,15 @@ public class GUINhanVien extends GUIFormContent {
     {
         if(chucVu.equals("Giám đốc"))
         {
-            return "PQ0";
+            return "PQ000";
         }
         if(chucVu.equals("Quản lý"))
         {
-            return "PQ1";
+            return "PQ001";
         }
         if(chucVu.equals("Nhân viên"))
         {
-            return "PQ4";
+            return "PQ004";
         }
         return null;
     }

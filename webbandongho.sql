@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 19, 2020 lúc 10:26 AM
--- Phiên bản máy phục vụ: 10.4.16-MariaDB
--- Phiên bản PHP: 7.4.12
+-- Thời gian đã tạo: Th12 28, 2021 lúc 07:52 AM
+-- Phiên bản máy phục vụ: 10.4.22-MariaDB
+-- Phiên bản PHP: 8.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -149,7 +149,8 @@ INSERT INTO `khachhang` (`IDKhachHang`, `HoKhachHang`, `TenKhachHang`, `DiaChiNh
 ('KH002', 'Lê', 'Nhân', 'Duong Ba Trac', '0788889378'),
 ('KH003', 'Nguyễn', 'Nguyên', 'Tam Danh', '0944449394'),
 ('KH004', 'Cao', 'Hưng', 'Ta Quang Buu', '0909189189'),
-('KH005', 'Nguyễn', 'Huy', 'Au Duong Lan', '0906600189');
+('KH005', 'Nguyễn', 'Huy', 'Au Duong Lan', '0906600189'),
+('KH6', 'Kim', 'Phụng', 'Q8', '0767753865');
 
 -- --------------------------------------------------------
 
@@ -223,7 +224,10 @@ INSERT INTO `nhanvien` (`IDNhanVien`, `HoNhanVien`, `TenNhanVien`, `Gmail`, `Gio
 ('NV003', 'Lê Trí', 'Nhân', 'TriNhan@gmail.com', 'chưa biết', '0304050621', 'Quản lý'),
 ('NV004', 'Nguyễn Tấn ', 'Phát', 'TanPhat@gmail.com', 'Nam', '0903221155', 'Nhân viên'),
 ('NV005', 'Nguyễn', 'Thịnh', 'NguyenThinh@gmail.com', 'Nam', '0203040101', 'Nhân viên'),
-('NV006', 'Cao Quốc', 'Hưng', 'QuocHung@gmail.com', 'Nam', '0530125124', 'Nhân viên');
+('NV006', 'Cao Quốc', 'Hưng', 'QuocHung@gmail.com', 'Nam', '0530125124', 'Nhân viên'),
+('NV7', 'kim', 'phung', 'kphung@gmail.com', 'Nam', '0767753865', 'Nhân viên'),
+('NV8', 'ban', 'hang', 'banhang@gmail.com', 'Nam', '0923456789', 'Nhân viên'),
+('NV9', 'nhap', 'hang', 'nhaphang@gmail.com', 'Nữ', '0978889378', 'Nhân viên');
 
 -- --------------------------------------------------------
 
@@ -242,12 +246,11 @@ CREATE TABLE `phanquyen` (
 --
 
 INSERT INTO `phanquyen` (`IDPhanQuyen`, `TenQuyen`, `MoTaQuyen`) VALUES
-('PQ000', 'admin', 'QLBanHangQLNhapHangQLSanPhamQLThuongHieuQLLoaiDayQLHoaDonQLHDNhapQLKhachHangQLNhanVienQLNhaCungCapQLTaiKhoanQLPhanQuyenQLThongKe'),
-('PQ001', 'Quản lý', 'QLBanHangQLNhapHangQLSanPhamQLThuongHieuQLLoaiDayQLHoaDonQLHDNhapQLKhachHangQLNhanVienQLNhaCungCapQLThongKe'),
+('PQ000', 'admin', 'QLBanHangQLNhapHangQLHoaDonQLHoaDonNhapQLThuongHieuQLSanPhamQLKhachHangQLNhaCungCapQLNhanVienQLTaiKhoanQLPhanQuyenQLThongKeQLLoaiDay'),
+('PQ001', 'Quản lý', 'QLNhanVienQLTaiKhoanQLPhanQuyenQLThongKe'),
 ('PQ002', 'Bán hàng', 'QLBanHangQLHoaDonQLKhachHang'),
-('PQ003', 'Nhập hàng', 'QLNhapHangQLHDNhap'),
-('PQ004', 'Bán và nhập hàng', 'QLBanHangQLNhapHangQLHoaDonQLHDNhapQLKhachHang'),
-('PQ5', 'aaaaaa', 'QLMonAn');
+('PQ003', 'Nhập hàng', 'QLNhapHangQLHDNhapQLNhaCungCapQLSanPham'),
+('PQ004', 'Bán và nhập hàng', 'QLBanHangQLNhapHangQLHoaDonQLHDNhapQLKhachHang');
 
 -- --------------------------------------------------------
 
@@ -337,7 +340,7 @@ INSERT INTO `sanpham` (`IDSanPham`, `TenSanPham`, `IDDay`, `IDThuongHieu`, `IDNh
 ('SP066', 'Adriatica_A8109.5153Q', 'LD004', 'TH001', 'NC004', '2 năm', 10, 4440000, 'Adriatica_A8109.5153Q.jpg'),
 ('SP067', 'Adriatica_A3603.5113QZ', 'LD004', 'TH001', 'NC004', '2 năm', 10, 5490000, 'Adriatica_A3603.5113QZ.jpg'),
 ('SP068', 'Adriatica_A3508.1143QZ', 'LD004', 'TH001', 'NC004', '2 năm', 10, 5310000, 'Adriatica_A3508.1143QZ.jpg'),
-('SP069', 'Adriatica_A3143.2111Q', 'LD004', 'TH001', 'NC004', '2 năm', 10, 5610000, 'Adriatica_A3143.2111Q.jpg');
+('SP069', 'Adriatica_A3143.2111Q', 'LD004', 'TH002', 'NC004', '2 năm', 10, 5610000, 'Adriatica_A3143.2111Q.jpg');
 
 -- --------------------------------------------------------
 
@@ -358,11 +361,14 @@ CREATE TABLE `taikhoankh` (
 
 INSERT INTO `taikhoankh` (`TaiKhoan`, `MatKhau`, `IDNhanVien`, `IDPhanQuyen`) VALUES
 ('admin', 'admin', 'NV001', 'PQ000'),
-('caohung', 'iklmno', 'NV003', 'PQ001'),
-('lenhan', '290620', 'NV002', 'PQ002'),
-('nguyenhuy', 'qwertya', 'NV004', 'PQ003'),
+('banhang', '123456', 'NV8', 'PQ002'),
+('caohung', '123456', 'NV003', 'PQ001'),
+('kimphung', '123456', 'NV7', 'PQ004'),
+('lenhan', '12356', 'NV002', 'PQ002'),
+('nguyenhuy', '123456', 'NV004', 'PQ003'),
 ('nguyennguyen', '456789', 'NV005', 'PQ004'),
-('nguyenphat', 'abcdef', 'NV006', 'PQ004');
+('nguyenphat', 'abcdef', 'NV006', 'PQ004'),
+('nhaphang', '123456', 'NV9', 'PQ003');
 
 -- --------------------------------------------------------
 
