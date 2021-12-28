@@ -39,11 +39,11 @@ import javax.swing.plaf.FontUIResource;
 
 public class GUIPhanQuyen extends GUIFormContent{
     public static String array_PhanQuyen[]={"Mã quyền","Tên quyền"};
-    public String arrString_Quyen[]={"Quản lý bán hàng","Quản lý nhập hàng","Quản lý sản phẩm","Quản lý thương hiệu","Quản lý loại dây","Quản lý hóa đơn",
+    public String arrString_Quyen[]={"Quản lý bán hàng","Quản lý nhập hàng","Quản lý sản phẩm","Quản lý hóa đơn",
         "Quản lý hóa đơn nhập",
         "Quản lý khách hàng","Quản lý nhân viên",
         "Quản lý nhà cung cấp","Quản lý tài khoản",
-        "Quản lý phân quyền","Quản lý thống kê"};
+        "Quản lý phân quyền","Quản lý thống kê","Quản lý thương hiệu","Quản lý loại dây"};
     private String arr_listmotaQuyen[]={"QLBanHang","QLNhapHang","QLSanPham","QLHoaDon","QLHDNhap",
         "QLKhachHang","QLNhanVien","QLNhaCungCap","QLTaiKhoan","QLPhanQuyen","QLThongKe","QLThuongHieu","QLLoaiDay"};
     private JCheckBox cbPhanQuyen[] = new JCheckBox[arrString_Quyen.length];
